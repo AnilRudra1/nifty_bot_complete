@@ -21,28 +21,33 @@ class Config:
     TELEGRAM_CHAT_ID     = os.getenv("TELEGRAM_CHAT_ID", "")
 
     # ── Mode ───────────────────────────────────────────────────────────────────
-    TRADING_MODE         = os.getenv("TRADING_MODE", "paper")   # paper | live
+    TRADING_MODE         = os.getenv("TRADING_MODE", "paper")
 
     # ── Capital & Risk ─────────────────────────────────────────────────────────
     CAPITAL              = float(os.getenv("CAPITAL", 100000))
     RISK_PER_TRADE_PCT   = float(os.getenv("RISK_PER_TRADE_PCT", 1.5))
-    MAX_LOSS_PER_DAY     = float(os.getenv("MAX_LOSS_PER_DAY", 5000))
-    MAX_TRADES_PER_DAY   = int(os.getenv("MAX_TRADES_PER_DAY", 6))
-    LOT_SIZE             = int(os.getenv("LOT_SIZE", 50))
+    MAX_LOSS_PER_DAY     = float(os.getenv("MAX_LOSS_PER_DAY", 999999))   # disabled for testing
+    MAX_TRADES_PER_DAY   = int(os.getenv("MAX_TRADES_PER_DAY", 9999))     # disabled for testing
+    LOT_SIZE             = int(os.getenv("LOT_SIZE", 65))
+
+    # ── Dead stock filters ─────────────────────────────────────────────────────
+    MIN_PREMIUM          = float(os.getenv("MIN_PREMIUM", 8.0))     # skip options below ₹8
+    MIN_VOLUME           = int(os.getenv("MIN_VOLUME", 0))           # min volume (0 = off)
+    EXPIRY_NO_TRADE_HOUR = int(os.getenv("EXPIRY_NO_TRADE_HOUR", 14)) # no new trades after 2PM on expiry
 
     # ── Strategy ───────────────────────────────────────────────────────────────
     TIMEFRAME            = os.getenv("TIMEFRAME", "FIVE_MINUTE")
     STRIKE_RANGE_POINTS  = int(os.getenv("STRIKE_RANGE_POINTS", 500))
     MIN_OI_THRESHOLD     = int(os.getenv("MIN_OI_THRESHOLD", 100000))
-    ATR_TRAIL_MULTIPLIER = float(os.getenv("ATR_TRAIL_MULTIPLIER", 1.5))
+    ATR_TRAIL_MULTIPLIER = float(os.getenv("ATR_TRAIL_MULTIPLIER", 1.0))
 
     # ── Market timings (IST, 24hr) ─────────────────────────────────────────────
     MARKET_OPEN          = "09:15"
     MARKET_CLOSE         = "15:30"
-    NO_ENTRY_AFTER       = "15:15"   # no new entries after this
-    SQUARE_OFF_TIME      = "15:15"   # force close all positions
-    AVOID_OPEN_MINUTES   = 15        # skip first 15 min after open
-    AVOID_CLOSE_MINUTES  = 15        # skip last 15 min before close
+    NO_ENTRY_AFTER       = "15:15"
+    SQUARE_OFF_TIME      = "15:15"
+    AVOID_OPEN_MINUTES   = 15
+    AVOID_CLOSE_MINUTES  = 15
 
     # ── Indicator settings ─────────────────────────────────────────────────────
     RSI_PERIOD           = 14
@@ -51,11 +56,17 @@ class Config:
     EMA_FAST             = 9
     EMA_SLOW             = 21
     ADX_PERIOD           = 14
-    ADX_TREND_THRESHOLD  = 20        # ADX above this = trending market
+    ADX_TREND_THRESHOLD  = 20
     ATR_PERIOD           = 14
-    VOLUME_SURGE_MULT    = 1.5       # volume must be 1.5x avg to confirm signal
+    VOLUME_SURGE_MULT    = 1.5
     SR_LOOKBACK          = 5
     SR_TOLERANCE_PCT     = 0.15
+
+    # ── API rate limit settings ────────────────────────────────────────────────
+    API_DELAY_BETWEEN    = float(os.getenv("API_DELAY_BETWEEN", 12))  # seconds between instruments
+    API_RETRY_DELAY      = float(os.getenv("API_RETRY_DELAY", 20))    # seconds between retries
+    API_MAX_RETRIES      = int(os.getenv("API_MAX_RETRIES", 2))       # max retries per fetch
+    POLL_SECONDS         = int(os.getenv("POLL_SECONDS", 30))         # cycle wait
 
     # ── Dashboard ──────────────────────────────────────────────────────────────
     DASHBOARD_PORT       = int(os.getenv("DASHBOARD_PORT", 5000))
@@ -64,5 +75,7 @@ class Config:
     # ── Paths ──────────────────────────────────────────────────────────────────
     LOG_DIR              = "logs"
     TRADE_LOG_PATH       = "logs/trades.csv"
+    DETAILED_LOG_PATH    = "logs/trade_details.json"
     ERROR_LOG_PATH       = "logs/errors.log"
     STATE_FILE           = "logs/bot_state.json"
+

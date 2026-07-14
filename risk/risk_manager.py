@@ -72,6 +72,14 @@ class RiskManager:
         """Master check before any new entry."""
         self._check_day_reset()
 
+        # Skip trading on expiry day after 2 PM
+        if self.risk.is_expiry_day() and datetime.now().time() >= time(14, 0):
+            return
+
+        # Don't trade options with premium below ₹5
+        if row["close"] < 5:
+            return
+
         if self.bot_paused:
             return False, "Bot paused from dashboard"
 

@@ -73,7 +73,7 @@ class AngelOneClient:
                 resp = self.smart_api.getCandleData(params)
                 if not resp.get("status"):
                     log.warning(f"Candle fetch attempt {attempt+1} failed: {resp}")
-                    time.sleep(2)
+                    time.sleep(10)
                     continue
                 df = pd.DataFrame(resp["data"],
                                   columns=["timestamp", "open", "high", "low", "close", "volume"])
@@ -83,7 +83,7 @@ class AngelOneClient:
                 return df
             except Exception as e:
                 log.error(f"Candle fetch exception attempt {attempt+1}: {e}")
-                time.sleep(3)
+                time.sleep(15)
         return pd.DataFrame()
 
     def get_option_chain(self, expiry: str, strike_price: int) -> dict:
