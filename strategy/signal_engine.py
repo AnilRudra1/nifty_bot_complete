@@ -14,6 +14,7 @@ from config import Config
 from strategy.candlestick_patterns import apply_all_patterns, get_pattern_signal
 from strategy.indicators import add_all_indicators
 from strategy.support_resistance import get_sr_levels, is_near_level
+from strategy.smc import get_smc_score
 
 
 # ── Higher timeframe trend ─────────────────────────────────────────────────────
@@ -227,10 +228,16 @@ def generate_signals(df: pd.DataFrame) -> pd.DataFrame:
         # ADX sideways filter
         if not row.get("is_trending", True):
             score  = 0
-            reason = ["ADX sideways — no trade"]
+            reason = ["sideways (ADX low)"]
 
-        final_signal = direction if score >= Config.SIGNAL_SCORE_MIN else None
-        signals.append(final_signal)
+        # Phase 2 — SMC score adjustment
+        if score > 0 and direction:
+            smc_adj, smc_reason = get_smc_score(df, direction)
+            score += smc_adj
+            if smc_reason:
+                reason.append(f"SMC: {smc_reason}")
+
+        signals.append(direction if score >= Config.SIGNAL_SCORE_MIN else None)
         scores.append(score)
         reasons.append(", ".join(reason))
 

@@ -265,12 +265,23 @@ MED_CONF_BEAR  = ["pat_shooting_star", "pat_hanging_man", "pat_dark_cloud", "pat
 LOW_CONF       = ["pat_doji", "pat_spinning_top", "pat_marubozu_bull", "pat_marubozu_bear"]
 
 
-def get_pattern_signal(row) -> tuple[str | None, str]:
-    """
-    Returns (direction, confidence) for the latest candle row.
-    direction: 'BUY' | 'SELL' | None
-    confidence: 'HIGH' | 'MEDIUM' | 'LOW' | ''
-    """
+def get_pattern_signal(row) -> tuple:
+    # Phase 1 — Blocked patterns (confirmed losers from real trading data)
+    # Piercing: 0W 5L across all days = -Rs.4,572
+    # Dark Cloud: 1W 5L across all days = -Rs.5,401
+    # Bull Harami: 4W 13L across all days = -Rs.4,270
+    # 3 Crows: 0W 3L across all days = -Rs.2,874
+    # 3 Soldiers: 1W 2L across all days = -Rs.2,612
+    BLOCKED = [
+        "pat_piercing",
+        "pat_dark_cloud",
+        "pat_bull_harami",
+        "pat_3_crows",
+        "pat_3_soldiers",
+    ]
+    for col in BLOCKED:
+        if row.get(col):
+            return None, ""
     for col in HIGH_CONF_BULL:
         if row.get(col): return "BUY", "HIGH"
     for col in HIGH_CONF_BEAR:
