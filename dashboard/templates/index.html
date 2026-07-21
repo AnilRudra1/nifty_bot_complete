@@ -2,297 +2,237 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Nifty Bot Dashboard</title>
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Nifty Bot</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.7.2/socket.io.min.js"></script>
 <style>
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { font-family: 'Segoe UI', sans-serif; background: #0f1117; color: #e0e0e0; padding: 16px; }
-  h1 { color: #fff; font-size: 1.4rem; margin-bottom: 16px; }
-  .live-price { color: #f1c40f; font-weight: 700; transition: color 0.3s; }
-  .live-price.up { color: #26c281; }
-  .live-price.down { color: #e74c3c; }
-  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 12px; margin-bottom: 20px; }
-  .card { background: #1a1d27; border-radius: 10px; padding: 16px; }
-  .card .label { font-size: 0.75rem; color: #888; margin-bottom: 6px; text-transform: uppercase; letter-spacing: .5px; }
-  .card .value { font-size: 1.5rem; font-weight: 700; }
-  .green { color: #26c281; } .red { color: #e74c3c; } .yellow { color: #f1c40f; } .blue { color: #3498db; }
-  .status-dot { display: inline-block; width: 10px; height: 10px; border-radius: 50%; margin-right: 6px; }
-  .alive { background: #26c281; } .dead { background: #e74c3c; }
-  .section { background: #1a1d27; border-radius: 10px; padding: 16px; margin-bottom: 16px; }
-  .section h2 { font-size: 0.9rem; color: #aaa; margin-bottom: 12px; text-transform: uppercase; letter-spacing: .5px; }
-  .btn { padding: 9px 18px; border: none; border-radius: 8px; cursor: pointer; font-weight: 600; font-size: 0.85rem; transition: opacity .2s; }
-  .btn:hover { opacity: 0.85; }
-  .btn-green  { background: #26c281; color: #fff; }
-  .btn-yellow { background: #f1c40f; color: #000; }
-  .btn-red    { background: #e74c3c; color: #fff; }
-  .btn-blue   { background: #3498db; color: #fff; }
-  .controls   { display: flex; gap: 10px; flex-wrap: wrap; }
-  table { width: 100%; border-collapse: collapse; font-size: 0.83rem; }
-  th { text-align: left; padding: 8px 10px; color: #888; font-weight: 500; border-bottom: 1px solid #2a2d3a; }
-  td { padding: 8px 10px; border-bottom: 1px solid #1e2130; }
-  tr:last-child td { border: none; }
-  .tag { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 0.75rem; font-weight: 600; }
-  .tag-buy  { background: #1a3a2a; color: #26c281; }
-  .tag-sell { background: #3a1a1a; color: #e74c3c; }
-  .tag-sl   { background: #3a2a1a; color: #f39c12; }
-  .tag-sq   { background: #2a1a3a; color: #9b59b6; }
-  #last-update { font-size: 0.75rem; color: #555; margin-bottom: 16px; }
-  .pos-card { background: #1e2130; border-radius: 8px; padding: 12px; margin-bottom: 10px; }
-  .pos-card .sym { font-weight: 700; font-size: 1rem; }
-  .pos-card .detail { font-size: 0.8rem; color: #aaa; margin-top: 4px; }
-  #toast { position: fixed; bottom: 20px; right: 20px; background: #26c281; color: #fff;
-           padding: 12px 20px; border-radius: 8px; font-weight: 600; display: none;
-           z-index: 999; animation: fadein .3s; }
-  @keyframes fadein { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; } }
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',sans-serif;background:#0f1117;color:#e0e0e0;padding:16px}
+h1{color:#fff;font-size:1.3rem;margin-bottom:14px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-bottom:16px}
+.card{background:#1a1d27;border-radius:10px;padding:14px}
+.card .label{font-size:.72rem;color:#888;margin-bottom:4px;text-transform:uppercase;letter-spacing:.5px}
+.card .value{font-size:1.4rem;font-weight:700}
+.green{color:#26c281}.red{color:#e74c3c}.yellow{color:#f1c40f}.blue{color:#3498db}
+.dot{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:5px}
+.dot-alive{background:#26c281}.dot-dead{background:#e74c3c}
+.section{background:#1a1d27;border-radius:10px;padding:14px;margin-bottom:14px}
+.section h2{font-size:.8rem;color:#aaa;margin-bottom:10px;text-transform:uppercase;letter-spacing:.5px}
+.btn{padding:8px 16px;border:none;border-radius:8px;cursor:pointer;font-weight:600;font-size:.82rem}
+.btn-green{background:#26c281;color:#fff}.btn-yellow{background:#f1c40f;color:#000}
+.btn-red{background:#e74c3c;color:#fff}.btn-blue{background:#3498db;color:#fff}
+.controls{display:flex;gap:8px;flex-wrap:wrap}
+table{width:100%;border-collapse:collapse;font-size:.8rem}
+th{text-align:left;padding:7px 8px;color:#888;font-weight:500;border-bottom:1px solid #2a2d3a}
+td{padding:7px 8px;border-bottom:1px solid #1e2130}
+.tag{display:inline-block;padding:2px 7px;border-radius:4px;font-size:.72rem;font-weight:600}
+.tag-buy{background:#1a3a2a;color:#26c281}.tag-sell{background:#3a1a1a;color:#e74c3c}
+.pos-card{background:#1e2130;border-radius:8px;padding:12px;margin-bottom:10px}
+.pos-card .sym{font-weight:700;font-size:.95rem}
+.detail{font-size:.78rem;color:#aaa;margin-top:4px}
+.live-price{color:#f1c40f;font-weight:700;transition:color .3s}
+.live-price.up{color:#26c281}.live-price.down{color:#e74c3c}
+#toast{position:fixed;bottom:20px;right:20px;background:#26c281;color:#fff;padding:11px 18px;border-radius:8px;font-weight:600;display:none;z-index:999}
+#last-update{font-size:.72rem;color:#555;margin-bottom:14px}
 </style>
 </head>
 <body>
-
 <h1>🤖 Nifty Bot Dashboard</h1>
 <div id="last-update">Last updated: —</div>
 
-<!-- Status cards -->
 <div class="grid">
-  <div class="card">
-    <div class="label">Bot Status</div>
-    <div class="value" id="status-text">—</div>
-  </div>
-  <div class="card">
-    <div class="label">Mode</div>
-    <div class="value blue" id="mode-text">—</div>
-  </div>
-  <div class="card">
-    <div class="label">Today's P&L</div>
-    <div class="value" id="daily-pnl">—</div>
-  </div>
-  <div class="card">
-    <div class="label">Trades Today</div>
-    <div class="value" id="trades-today">—</div>
-  </div>
-  <div class="card">
-    <div class="label">Total P&L</div>
-    <div class="value" id="total-pnl">—</div>
-  </div>
-  <div class="card">
-    <div class="label">Win Rate</div>
-    <div class="value" id="win-rate">—</div>
-  </div>
-  <div class="card">
-    <div class="label">Total Trades</div>
-    <div class="value" id="total-trades">—</div>
-  </div>
-  <div class="card">
-    <div class="label">Wins / Losses</div>
-    <div class="value" id="wins-losses">—</div>
-  </div>
+  <div class="card"><div class="label">Status</div><div class="value" id="s-status">—</div></div>
+  <div class="card"><div class="label">Mode</div><div class="value blue" id="s-mode">—</div></div>
+  <div class="card"><div class="label">Market Dir</div><div class="value" id="s-dir">—</div></div>
+  <div class="card"><div class="label">Today P&L</div><div class="value" id="s-dpnl">—</div></div>
+  <div class="card"><div class="label">Trades</div><div class="value" id="s-trades">—</div></div>
+  <div class="card"><div class="label">Win Rate</div><div class="value" id="s-wr">—</div></div>
+  <div class="card"><div class="label">Total P&L</div><div class="value" id="s-tpnl">—</div></div>
+  <div class="card"><div class="label">W / L</div><div class="value" id="s-wl">—</div></div>
 </div>
 
-<!-- Controls -->
 <div class="section">
   <h2>Controls</h2>
   <div class="controls">
-    <button class="btn btn-green"  onclick="control('resume')">▶ Resume</button>
-    <button class="btn btn-yellow" onclick="control('pause')">⏸ Pause</button>
-    <button class="btn btn-blue"   onclick="control('stop')">⏹ Stop Bot</button>
-    <button class="btn btn-red"    onclick="confirmExit()">🚨 Emergency Exit All</button>
+    <button class="btn btn-green"  onclick="ctrl('resume')">▶ Resume</button>
+    <button class="btn btn-yellow" onclick="ctrl('pause')">⏸ Pause</button>
+    <button class="btn btn-blue"   onclick="ctrl('stop')">⏹ Stop</button>
+    <button class="btn btn-red"    onclick="confirmExit()">🚨 Emergency Exit</button>
   </div>
 </div>
 
-<!-- Open Positions -->
 <div class="section">
   <h2>Open Positions</h2>
-  <div id="positions-container"><p style="color:#555">No open positions</p></div>
+  <div id="positions"><p style="color:#555">No open positions</p></div>
 </div>
 
-<!-- Instruments being monitored -->
 <div class="section">
   <h2>Monitoring</h2>
-  <div id="instruments-list" style="color:#aaa; font-size:0.85rem">—</div>
+  <div id="instruments" style="color:#aaa;font-size:.82rem">—</div>
 </div>
 
-<!-- Trade history -->
 <div class="section">
   <h2>Recent Trades</h2>
   <table>
-    <thead>
-      <tr>
-        <th>Symbol</th><th>Dir</th><th>Entry</th><th>Exit</th>
-        <th>P&L (₹)</th><th>Reason</th><th>Score</th><th>Time</th>
-      </tr>
-    </thead>
-    <tbody id="trades-table"><tr><td colspan="8" style="color:#555">No trades yet</td></tr></tbody>
+    <thead><tr>
+      <th>Symbol</th><th>Dir</th><th>Entry</th><th>Exit</th>
+      <th>High</th><th>Low</th><th>P&L</th><th>Reason</th><th>Score</th>
+    </tr></thead>
+    <tbody id="trades-table"><tr><td colspan="9" style="color:#555">No trades yet</td></tr></tbody>
   </table>
 </div>
 
 <div id="toast"></div>
-
 <script>
 const socket = io();
+socket.on("connect", () => socket.emit("request_update"));
+socket.on("update", d => render(d));
+setInterval(() => socket.emit("request_update"), 5000);
 
-socket.on('connect', () => socket.emit('request_update'));
-socket.on('update', data => render(data));
+function fmt(n){ return parseFloat(n||0).toLocaleString("en-IN",{minimumFractionDigits:2}); }
 
-// Poll every 5 seconds as fallback
-setInterval(() => socket.emit('request_update'), 5000);
-
-function render(d) {
-  document.getElementById('last-update').textContent = 'Last updated: ' + d.timestamp;
-
-  // Status
-  const alive  = d.alive;
-  const dot    = `<span class="status-dot ${alive ? 'alive' : 'dead'}"></span>`;
-  document.getElementById('status-text').innerHTML = dot + (alive ? d.status : 'OFFLINE');
-
-  document.getElementById('mode-text').textContent    = (d.mode || '—').toUpperCase();
-  document.getElementById('trades-today').textContent = d.trades_today;
-  document.getElementById('total-trades').textContent = d.total_trades;
-  document.getElementById('wins-losses').innerHTML    =
-    `<span class="green">${d.wins}W</span> / <span class="red">${d.losses}L</span>`;
-  document.getElementById('win-rate').textContent     = d.win_rate + '%';
-
-  const dpnl = d.daily_pnl || 0;
-  document.getElementById('daily-pnl').innerHTML =
-    `<span class="${dpnl >= 0 ? 'green' : 'red'}">₹${dpnl.toLocaleString('en-IN', {minimumFractionDigits:2})}</span>`;
-
-  const tpnl = d.total_pnl || 0;
-  document.getElementById('total-pnl').innerHTML =
-    `<span class="${tpnl >= 0 ? 'green' : 'red'}">₹${tpnl.toLocaleString('en-IN', {minimumFractionDigits:2})}</span>`;
+function render(d){
+  document.getElementById("last-update").textContent = "Last updated: " + d.timestamp;
+  const alive = d.alive;
+  document.getElementById("s-status").innerHTML =
+    `<span class="dot ${alive?"dot-alive":"dot-dead"}"></span>${alive?d.status:"OFFLINE"}`;
+  document.getElementById("s-mode").textContent   = (d.mode||"—").toUpperCase();
+  const dirColor = d.market_dir==="BULL"?"green":d.market_dir==="BEAR"?"red":"yellow";
+  document.getElementById("s-dir").innerHTML      = `<span class="${dirColor}">${d.market_dir||"—"}</span>`;
+  document.getElementById("s-trades").textContent = d.trades_today||0;
+  document.getElementById("s-wr").textContent     = (d.win_rate||0) + "%";
+  const dp = d.daily_pnl||0;
+  document.getElementById("s-dpnl").innerHTML     = `<span class="${dp>=0?"green":"red"}">₹${fmt(dp)}</span>`;
+  const tp = d.total_pnl||0;
+  document.getElementById("s-tpnl").innerHTML     = `<span class="${tp>=0?"green":"red"}">₹${fmt(tp)}</span>`;
+  document.getElementById("s-wl").innerHTML       =
+    `<span class="green">${d.wins||0}W</span> / <span class="red">${d.losses||0}L</span>`;
 
   // Positions
-  const posEl = document.getElementById('positions-container');
-  const pos   = d.positions || {};
-  if (Object.keys(pos).length === 0) {
-            posEl.innerHTML = '<p style="color:#555">No open positions</p>';
-        } else {
-            posEl.innerHTML = Object.entries(pos).map(([sym, p]) => {
-              if (typeof p !== 'object' || !p.entry) return '';
-              const entry = parseFloat(p.entry || 0);
-              const live  = parseFloat(p.last_price || entry);
-              const sl    = parseFloat(p.current_sl || p.sl || 0);
-              const qty   = p.qty || 130;
-              const dir   = p.direction || 'BUY';
-              const unreal = dir === 'BUY'
-                ? ((live - entry) * qty).toFixed(2)
-                : ((entry - live) * qty).toFixed(2);
-              const pnlCls = parseFloat(unreal) >= 0 ? 'green' : 'red';
-              return `
-              <div class="pos-card">
-                <span class="sym">${sym}</span>
-                <span id="dir_${sym}" class="tag ${dir==='BUY'?'tag-buy':'tag-sell'}" data-dir="${dir}" style="margin-left:10px">${dir}</span>
-                <span id="pnl_${sym}" class="${pnlCls}" style="margin-left:10px;font-weight:700">${parseFloat(unreal)>=0?'+':''}₹${unreal}</span>
-                <div class="detail" style="margin-top:6px">
-                  Entry: <span id="entry_${sym}" data-entry="${entry}">₹${entry}</span> &nbsp;|&nbsp;
-                  Live: <span id="live_${sym}" class="live-price">₹${live}</span> &nbsp;|&nbsp;
-                  Trail SL: ₹${sl} &nbsp;|&nbsp;
-                  Qty: <span id="qty_${sym}" data-qty="${qty}">${qty}</span>
-                </div>
-                <div class="detail">Since: ${p.entry_time || ''}</div>
-                <div style="margin-top:8px">
-                  <input id="sl_${sym}" type="number" step="0.05" placeholder="New SL"
-                    style="padding:5px;width:120px;background:#2a2d3a;color:#fff;border:1px solid #444;border-radius:6px;">
-                  <button class="btn btn-yellow" style="padding:6px 14px;margin-left:6px;font-size:0.8rem"
-                    onclick="adjustSL('${sym}')">Adjust SL</button>
-                </div>
-              </div>`;
-            }).join('');
-        }
+  const posEl = document.getElementById("positions");
+  const pos   = d.positions||{};
+  const posKeys = Object.keys(pos).filter(k => pos[k] && pos[k].entry);
+  if(posKeys.length===0){
+    posEl.innerHTML = '<p style="color:#555">No open positions</p>';
+  } else {
+    posEl.innerHTML = posKeys.map(sym => {
+      const p = pos[sym];
+      const entry  = parseFloat(p.entry||0);
+      const live   = parseFloat(p.last_price||entry);
+      const sl     = parseFloat(p.current_sl||p.sl||0);
+      const qty    = p.qty||130;
+      const dir    = p.direction||"BUY";
+      const unreal = dir==="BUY" ? ((live-entry)*qty) : ((entry-live)*qty);
+      const pc     = unreal>=0?"green":"red";
+      return `<div class="pos-card">
+        <span class="sym">${sym}</span>
+        <span class="tag ${dir==="BUY"?"tag-buy":"tag-sell"}" style="margin-left:8px">${dir}</span>
+        <span id="pnl_${sym}" class="${pc}" style="margin-left:8px;font-weight:700">
+          ${unreal>=0?"+":""}₹${fmt(unreal)}
+        </span>
+        <span style="margin-left:8px;font-size:.72rem;color:#666">(Nifty:${p.nifty_signal||"—"})</span>
+        <div class="detail" style="margin-top:6px">
+          Entry: <span id="entry_${sym}" data-entry="${entry}" data-qty="${qty}" data-dir="${dir}">₹${entry}</span>
+          &nbsp;|&nbsp; Live: <span id="live_${sym}" class="live-price">₹${live}</span>
+          &nbsp;|&nbsp; Trail SL: <span id="sl_${sym}_display">₹${sl}</span>
+          &nbsp;|&nbsp; High: ₹${p.high||entry} &nbsp;|&nbsp; Low: ₹${p.low||entry}
+          &nbsp;|&nbsp; Qty: ${qty}
+        </div>
+        <div class="detail">Pattern: ${p.pattern||"—"} | Score: ${p.score||0} | Since: ${(p.entry_time||"").toString().slice(0,19)}</div>
+        <div style="margin-top:8px">
+          <input id="sl_input_${sym}" type="number" step="0.05" placeholder="New SL"
+            style="padding:5px;width:120px;background:#2a2d3a;color:#fff;border:1px solid #444;border-radius:6px;">
+          <button class="btn btn-yellow" style="padding:6px 14px;margin-left:6px;font-size:.8rem"
+            onclick="adjustSL('${sym}')">Adjust SL</button>
+        </div>
+      </div>`;
+    }).join("");
+  }
 
-  // Instruments
-  document.getElementById('instruments-list').textContent =
-    (d.instruments || []).join('  •  ') || 'None selected yet';
+  document.getElementById("instruments").textContent =
+    (d.instruments||[]).join("  •  ") || "—";
 
-  // Trade table
-  const tbody = document.getElementById('trades-table');
-  if (!d.recent_trades || d.recent_trades.length === 0) {
-    tbody.innerHTML = '<tr><td colspan="8" style="color:#555">No trades yet</td></tr>';
+  // Trades table
+  const tbody = document.getElementById("trades-table");
+  if(!d.recent_trades||d.recent_trades.length===0){
+    tbody.innerHTML = '<tr><td colspan="9" style="color:#555">No trades yet</td></tr>';
   } else {
     tbody.innerHTML = d.recent_trades.map(t => {
-      const pnl    = parseFloat(t.pnl_rupees) || 0;
-      const pnlCls = pnl >= 0 ? 'green' : 'red';
-      const dir    = t.direction || '';
-      const reason = (t.reason || t.exit_reason || '');
-      let reasonCls = 'tag-buy';
-      if (reason.includes('SL')) reasonCls = 'tag-sl';
-      else if (reason.includes('SQUARE')) reasonCls = 'tag-sq';
-      else if (dir === 'SELL') reasonCls = 'tag-sell';
+      const pnl    = parseFloat(t.pnl_rupees||0);
+      const pc     = pnl>=0?"green":"red";
+      const dir    = t.direction||"BUY";
+      const reason = t.reason||t.exit_reason||"";
       return `<tr>
-        <td>${t.symbol || '—'}</td>
-        <td><span class="tag ${dir === 'BUY' ? 'tag-buy' : 'tag-sell'}">${dir}</span></td>
+        <td style="font-size:.75rem">${t.symbol||"—"}</td>
+        <td><span class="tag ${dir==="BUY"?"tag-buy":"tag-sell"}">${dir}</span></td>
         <td>₹${parseFloat(t.entry||0).toFixed(2)}</td>
         <td>₹${parseFloat(t.exit||0).toFixed(2)}</td>
-        <td class="${pnlCls}">₹${pnl.toFixed(2)}</td>
-        <td><span class="tag ${reasonCls}">${reason}</span></td>
-        <td>${t.score || '—'}</td>
-        <td style="color:#666;font-size:0.75rem">${(t.exit_time||'').toString().slice(0,19)}</td>
+        <td>₹${parseFloat(t.high||0).toFixed(2)}</td>
+        <td>₹${parseFloat(t.low||0).toFixed(2)}</td>
+        <td class="${pc}">₹${pnl.toFixed(2)}</td>
+        <td style="font-size:.72rem">${reason}</td>
+        <td>${t.score||"—"}</td>
       </tr>`;
-    }).join('');
+    }).join("");
   }
 }
 
-function control(action) {
-  fetch('/api/control', {
-    method: 'POST',
-    headers: {'Content-Type': 'application/json'},
-    body: JSON.stringify({action})
-  }).then(r => r.json()).then(d => showToast(d.msg));
-}
-
-function confirmExit() {
-  if (confirm('Close ALL open positions immediately? This cannot be undone.')) {
-    control('emergency_exit');
-  }
-}
-
-function showToast(msg) {
-  const t = document.getElementById('toast');
-  t.textContent = msg; t.style.display = 'block';
-  setTimeout(() => t.style.display = 'none', 3000);
-}
-
-function adjustSL(symbol) {
-  const val = document.getElementById('sl_' + symbol).value;
-  if (!val) { showToast('Enter a SL value first'); return; }
-  fetch('/api/adjust_sl', {
-    method: 'POST',
-    headers: {'Content-Type': 'application/json'},
-    body: JSON.stringify({symbol: symbol, new_sl: parseFloat(val)})
-  }).then(r => r.json()).then(d => showToast(d.msg));
-}
-
-// Live LTP polling every 5 seconds for open positions only
+// Live LTP polling every 5 seconds
 let lastLTP = {};
-async function pollLTP() {
+async function pollLTP(){
   try {
-    const res  = await fetch('/api/ltp');
-    const data = await res.json();
+    const data = await (await fetch("/api/ltp")).json();
     Object.entries(data).forEach(([sym, ltp]) => {
-      const el = document.getElementById('live_' + sym);
-      if (!el) return;
-      const prev = lastLTP[sym] || ltp;
-      el.textContent = '₹' + ltp.toFixed(2);
-      el.className   = 'live-price ' + (ltp > prev ? 'up' : ltp < prev ? 'down' : '');
+      const el = document.getElementById("live_"+sym);
+      if(!el) return;
+      const prev = lastLTP[sym]||ltp;
+      el.textContent = "₹"+ltp.toFixed(2);
+      el.className   = "live-price "+(ltp>prev?"up":ltp<prev?"down":"");
       lastLTP[sym]   = ltp;
-
-      // Also update unrealised P&L
-      const pnlEl  = document.getElementById('pnl_' + sym);
-      const entEl  = document.getElementById('entry_' + sym);
-      const qtyEl  = document.getElementById('qty_' + sym);
-      if (pnlEl && entEl && qtyEl) {
-        const dir   = document.getElementById('dir_' + sym)?.dataset.dir || 'BUY';
-        const entry = parseFloat(entEl.dataset.entry || 0);
-        const qty   = parseInt(qtyEl.dataset.qty || 130);
-        const unreal = dir === 'BUY'
-          ? ((ltp - entry) * qty).toFixed(2)
-          : ((entry - ltp) * qty).toFixed(2);
-        pnlEl.textContent = (parseFloat(unreal) >= 0 ? '+' : '') + '₹' + unreal;
-        pnlEl.className   = parseFloat(unreal) >= 0 ? 'green' : 'red';
+      const pnlEl  = document.getElementById("pnl_"+sym);
+      const entEl  = document.getElementById("entry_"+sym);
+      if(pnlEl && entEl){
+        const entry  = parseFloat(entEl.dataset.entry||0);
+        const qty    = parseInt(entEl.dataset.qty||130);
+        const dir    = entEl.dataset.dir||"BUY";
+        const unreal = dir==="BUY" ? (ltp-entry)*qty : (entry-ltp)*qty;
+        pnlEl.textContent = (unreal>=0?"+":"")+"₹"+unreal.toFixed(2);
+        pnlEl.className   = unreal>=0?"green":"red";
       }
     });
-  } catch(e) {}
+  } catch(e){}
 }
 setInterval(pollLTP, 5000);
 pollLTP();
+
+function ctrl(action){
+  fetch("/api/control",{method:"POST",headers:{"Content-Type":"application/json"},
+    body:JSON.stringify({action})}).then(r=>r.json()).then(d=>showToast(d.msg));
+}
+
+function adjustSL(sym){
+  const val = document.getElementById("sl_input_"+sym).value;
+  if(!val){ showToast("Enter SL value first"); return; }
+  fetch("/api/adjust_sl",{method:"POST",headers:{"Content-Type":"application/json"},
+    body:JSON.stringify({symbol:sym, new_sl:parseFloat(val)})})
+    .then(r=>r.json()).then(d=>{
+      showToast(d.msg);
+      if(d.ok){
+        const slEl = document.getElementById("sl_"+sym+"_display");
+        if(slEl) slEl.textContent = "₹"+parseFloat(val).toFixed(2);
+      }
+    });
+}
+
+function confirmExit(){
+  if(confirm("Close ALL positions immediately?")) ctrl("emergency_exit");
+}
+
+function showToast(msg){
+  const t = document.getElementById("toast");
+  t.textContent=msg; t.style.display="block";
+  setTimeout(()=>t.style.display="none",3000);
+}
 </script>
 </body>
 </html>

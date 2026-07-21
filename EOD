@@ -1,0 +1,859 @@
+
+======================================================================
+ NIFTY BOT — DAILY ANALYSIS REPORT
+ Date: 17 Jul 2026
+======================================================================
+
+SUMMARY
+-------
+Total trades    : 56
+Wins            : 27
+Losses          : 29
+Win rate        : 48.2%
+Net P&L         : Rs.56,813.80
+Brokerage paid  : Rs.2240 (56 trades x Rs.40)
+Avg win         : Rs.3,076.24
+Avg loss        : Rs.-904.99
+Best trade      : Rs.14,552.50
+Worst trade     : Rs.-2,968.90
+
+ALL TRADES
+--------------------------------------------------------------------------------------------------------------
+#   Symbol                     Dir     Entry    Exit    High     Low       P&L   Sc Pattern                Entry Time Exit Time  Reason
+--------------------------------------------------------------------------------------------------------------
+✅ 1  NIFTY21JUL2624150CE        BUY    150.25  190.00  200.10  149.35   5127.50   65 Bull Harami            10:06:06   10:21:04   TRAIL_SL
+✅ 2  NIFTY21JUL2623950CE        BUY    289.65  330.00  348.80  288.30   5205.50   75 Bull Harami            10:06:22   10:23:04   TRAIL_SL
+✅ 3  NIFTY21JUL2624050PE        SELL    73.45   70.58   74.70   63.70    333.10   65 Dark Cloud             10:06:38   10:45:40   TRAIL_SL
+✅ 4  NIFTY21JUL2624100PE        SELL    90.75   85.27   90.85   76.90    672.40   65 Bear Harami            10:07:09   10:46:06   TRAIL_SL
+✅ 5  NIFTY21JUL2624000PE        SELL    60.00   58.23   60.50   52.45    190.10   65 Bear Harami            10:07:57   11:08:44   TRAIL_SL
+✅ 6  NIFTY21JUL2624150PE        SELL   110.50  101.78  110.50   91.95   1093.60   65 Bear Harami            10:08:12   10:43:59   TRAIL_SL
+✅ 7  NIFTY21JUL2623950PE        SELL    49.45   47.25   49.45   42.50    246.00   65 Spinning Top           10:08:28   11:13:44   TRAIL_SL
+✅ 8  NIFTY21JUL2624000CE        BUY    256.30  300.00  306.70  254.65   5641.00   65 Hammer                 10:10:02   10:20:46   TRAIL_SL
+✅ 9  NIFTY21JUL2624050CE        BUY    232.15  260.00  270.15  226.55   3580.50   80 3 Inside Up            10:13:28   10:20:49   TRAIL_SL
+❌ 10 NIFTY21JUL2624050CE        BUY    256.15  256.12  276.60  254.00    -43.90   65 Bull Harami            10:27:45   10:37:52   TRAIL_SL
+❌ 11 NIFTY21JUL2624000CE        BUY    296.45  293.31  315.30  290.50   -448.20   65 Bull Harami            10:28:16   10:37:55   TRAIL_SL
+❌ 12 NIFTY21JUL2624150CE        BUY    187.45  185.45  203.80  183.00   -300.00   65 Piercing               10:28:32   10:37:58   TRAIL_SL
+❌ 13 NIFTY21JUL2623950CE        BUY    339.90  328.31  351.30  327.90  -1546.70   65 Bull Harami            10:28:48   10:38:30   TRAIL_SL
+❌ 14 NIFTY21JUL2624100CE        BUY    219.10  201.38  219.95  201.10  -2343.60   65 Bull Harami            10:41:01   10:46:15   TRAIL_SL
+❌ 15 NIFTY21JUL2624150CE        BUY    168.35  159.33  175.75  159.10  -1212.60   65 Spinning Top           10:51:02   11:10:49   TRAIL_SL
+❌ 16 NIFTY21JUL2624000CE        BUY    275.25  263.57  282.20  262.80  -1558.40   80 Spinning Top           10:56:02   11:08:52   TRAIL_SL
+❌ 17 NIFTY21JUL2624100PE        SELL    82.15   86.24   87.55   80.65   -571.70   80 3 Inside Down          10:58:24   11:08:55   TRAIL_SL
+❌ 18 NIFTY21JUL2624150PE        SELL    99.80  104.65  106.00   97.70   -670.50   80 3 Inside Down          10:59:26   11:08:57   TRAIL_SL
+❌ 19 NIFTY21JUL2623950CE        BUY    319.50  302.76  319.50  301.50  -2216.20   65 Spinning Top           11:05:59   11:10:52   TRAIL_SL
+✅ 20 NIFTY21JUL2624150CE        BUY    158.60  177.00  184.60  155.60   2352.00   65 Spinning Top           11:22:01   12:00:52   TRAIL_SL
+✅ 21 NIFTY21JUL2624050PE        SELL    70.45   67.09   72.35   62.95    396.80   80 Spinning Top           11:22:33   12:08:22   TRAIL_SL
+❌ 22 NIFTY21JUL2624000CE        BUY    293.00  279.26  293.00  278.20  -1826.20   65 Hammer                 11:57:52   12:00:58   TRAIL_SL
+❌ 23 NIFTY21JUL2623950CE        BUY    320.80  321.00  331.70  318.30    -14.00   65 Inv Hammer             12:20:25   12:40:06   TRAIL_SL
+✅ 24 NIFTY21JUL2624050PE        SELL    65.95   61.25   67.05   58.55    571.00   65 Spinning Top           12:21:13   12:49:56   TRAIL_SL
+✅ 25 NIFTY21JUL2623950PE        SELL    44.25   41.89   44.85   40.30    266.80   65 Doji                   12:31:48   12:50:17   TRAIL_SL
+✅ 26 NIFTY21JUL2624100PE        SELL    79.35   76.36   82.00   73.05    348.70   80 Bear Engulf            12:34:43   12:50:20   TRAIL_SL
+❌ 27 NIFTY21JUL2624000CE        BUY    304.50  289.58  304.50  289.30  -1979.60   90 3 Inside Up            12:50:09   12:51:10   TRAIL_SL
+❌ 28 NIFTY21JUL2624150PE        SELL    97.10   98.17   99.20   92.85   -179.10   65 Bear Harami            12:55:14   13:24:57   TRAIL_SL
+❌ 29 NIFTY21JUL2624100CE        BUY    208.80  203.12  217.00  201.35   -778.40   65 Bull Harami            12:56:48   13:15:49   TRAIL_SL
+❌ 30 NIFTY21JUL2624150CE        BUY    180.50  171.74  185.05  169.00  -1178.80   65 Bull Harami            12:58:23   13:16:04   TRAIL_SL
+❌ 31 NIFTY21JUL2623950CE        BUY    326.25  318.13  333.90  315.90  -1095.60   65 Bull Harami            12:58:39   13:16:07   TRAIL_SL
+❌ 32 NIFTY21JUL2624050PE        SELL    64.95   66.84   67.50   63.00   -285.70   65 Bear Harami            12:58:55   13:24:59   TRAIL_SL
+❌ 33 NIFTY21JUL2624050CE        BUY    252.10  239.17  253.25  238.85  -1720.90   80 Doji                   13:01:34   13:16:12   TRAIL_SL
+❌ 34 NIFTY21JUL2624100PE        SELL    77.15   81.04   81.95   76.70   -545.70   80 Bear Engulf            13:07:08   13:25:02   TRAIL_SL
+❌ 35 NIFTY21JUL2624000PE        SELL    52.00   54.74   54.75   52.00   -396.20   65 Spinning Top           13:07:24   13:15:43   TRAIL_SL
+❌ 36 NIFTY21JUL2624000CE        BUY    284.85  273.27  286.60  270.00  -1545.40   65 Piercing               13:12:23   13:24:41   TRAIL_SL
+❌ 37 NIFTY21JUL2624100PE        SELL    82.00   82.34   82.80   78.15    -84.20   65 Doji                   13:27:05   13:40:25   TRAIL_SL
+❌ 38 NIFTY21JUL2624050PE        SELL    66.70   67.49   67.55   64.20   -142.70   65 Spinning Top           13:30:14   13:40:27   TRAIL_SL
+❌ 39 NIFTY21JUL2624150PE        SELL    98.00  100.77  101.60   95.95   -400.10   80 Spinning Top           13:31:33   13:40:46   TRAIL_SL
+✅ 40 NIFTY21JUL2624050PE        SELL    70.55   47.05   70.95   43.10   3015.00   80 Doji                   13:54:23   14:19:20   TRAIL_SL
+✅ 41 NIFTY21JUL2624050CE        BUY    207.75  320.00  338.35  203.30  14552.50   70 Bull Engulf            13:55:57   14:18:22   TRAIL_SL
+✅ 42 NIFTY21JUL2624150CE        BUY    143.40  235.00  257.55  141.15  11868.00   70 Bull Engulf            13:58:03   14:19:23   TRAIL_SL
+✅ 43 NIFTY21JUL2624100PE        SELL    84.60   58.44   84.60   53.40   3360.80   85 Evening Star           13:58:51   14:19:13   TRAIL_SL
+✅ 44 NIFTY21JUL2624000PE        SELL    52.15   39.46   53.45   35.80   1609.70   80 3 Inside Down          13:59:40   14:19:57   TRAIL_SL
+✅ 45 NIFTY21JUL2624150PE        SELL    97.00   70.13  101.45   63.15   3453.10   90 Evening Star           13:59:56   14:19:02   TRAIL_SL
+✅ 46 NIFTY21JUL2623950CE        BUY    300.30  400.00  427.40  295.00  12921.00   70 Inv Hammer             14:06:19   14:19:05   TRAIL_SL
+❌ 47 NIFTY21JUL2624050CE        BUY    286.50  263.97  288.80  263.65  -2968.90   65 Inv Hammer             14:20:50   14:24:00   TRAIL_SL
+❌ 48 NIFTY21JUL2624150CE        BUY    206.95  207.00  217.75  191.25    -33.50   65 Bull Harami            14:26:34   14:54:10   TRAIL_SL
+❌ 49 NIFTY21JUL2623950CE        BUY    361.95  362.00  379.35  346.35    -33.50   65 Piercing               14:26:50   15:00:17   TRAIL_SL
+✅ 50 NIFTY21JUL2624050PE        SELL    50.85   47.55   55.25   42.45    389.00   65 Bear Harami            14:27:37   15:15:15   SQUARE_OFF
+✅ 51 NIFTY21JUL2624100PE        SELL    63.70   59.30   65.15   52.90    532.00   80 Bear Engulf            14:34:15   15:15:18   SQUARE_OFF
+✅ 52 NIFTY21JUL2624150PE        SELL    77.65   71.90   80.15   65.15    707.50   80 Bear Engulf            14:35:02   15:15:21   SQUARE_OFF
+✅ 53 NIFTY21JUL2624100CE        BUY    236.50  250.00  258.40  234.40   1715.00   80 Inv Hammer             14:40:48   15:14:55   TRAIL_SL
+✅ 54 NIFTY21JUL2624000CE        BUY    314.00  335.00  343.50  314.00   2690.00   65 Doji                   14:41:04   15:13:27   TRAIL_SL
+❌ 55 NIFTY21JUL2623950PE        SELL    29.60   30.25   30.25   27.35   -124.50   65 Dark Cloud             15:02:07   15:15:24   SQUARE_OFF
+✅ 56 NIFTY21JUL2624000PE        SELL    38.05   36.05   38.05   34.20    220.00   65 Spinning Top           15:04:29   15:15:00   SQUARE_OFF
+
+DETAILED TRADE INFO
+----------------------------------------------------------------------
+
+Trade 1: NIFTY21JUL2624150CE — ✅ WIN
+  Direction  : BUY
+  Pattern    : Bull Harami
+  Signal why : MED pattern, above VWAP, 5m EMA bull, 15m trend BULL
+  Entry      : Rs.150.25 at 10:06:06
+  Exit       : Rs.190.00 at 10:21:04
+  Held for   : 14 min
+  High/Low   : Rs.200.10 / Rs.149.35
+  Score      : 65
+  P&L        : Rs.5127.50
+  Exit reason: TRAIL_SL
+
+Trade 2: NIFTY21JUL2623950CE — ✅ WIN
+  Direction  : BUY
+  Pattern    : Bull Harami
+  Signal why : MED pattern, above VWAP, 5m EMA bull, at 5m support, 15m trend BULL
+  Entry      : Rs.289.65 at 10:06:22
+  Exit       : Rs.330.00 at 10:23:04
+  Held for   : 16 min
+  High/Low   : Rs.348.80 / Rs.288.30
+  Score      : 75
+  P&L        : Rs.5205.50
+  Exit reason: TRAIL_SL
+
+Trade 3: NIFTY21JUL2624050PE — ✅ WIN
+  Direction  : SELL
+  Pattern    : Dark Cloud
+  Signal why : MED pattern, below VWAP, 5m EMA bear, 15m trend BEAR
+  Entry      : Rs.73.45 at 10:06:38
+  Exit       : Rs.70.58 at 10:45:40
+  Held for   : 39 min
+  High/Low   : Rs.74.70 / Rs.63.70
+  Score      : 65
+  P&L        : Rs.333.10
+  Exit reason: TRAIL_SL
+
+Trade 4: NIFTY21JUL2624100PE — ✅ WIN
+  Direction  : SELL
+  Pattern    : Bear Harami
+  Signal why : MED pattern, below VWAP, 5m EMA bear, 15m trend BEAR
+  Entry      : Rs.90.75 at 10:07:09
+  Exit       : Rs.85.27 at 10:46:06
+  Held for   : 38 min
+  High/Low   : Rs.90.85 / Rs.76.90
+  Score      : 65
+  P&L        : Rs.672.40
+  Exit reason: TRAIL_SL
+
+Trade 5: NIFTY21JUL2624000PE — ✅ WIN
+  Direction  : SELL
+  Pattern    : Bear Harami
+  Signal why : MED pattern, below VWAP, 5m EMA bear, 15m trend BEAR
+  Entry      : Rs.60.00 at 10:07:57
+  Exit       : Rs.58.23 at 11:08:44
+  Held for   : 60 min
+  High/Low   : Rs.60.50 / Rs.52.45
+  Score      : 65
+  P&L        : Rs.190.10
+  Exit reason: TRAIL_SL
+
+Trade 6: NIFTY21JUL2624150PE — ✅ WIN
+  Direction  : SELL
+  Pattern    : Bear Harami
+  Signal why : MED pattern, below VWAP, 5m EMA bear, 15m trend BEAR
+  Entry      : Rs.110.50 at 10:08:12
+  Exit       : Rs.101.78 at 10:43:59
+  Held for   : 35 min
+  High/Low   : Rs.110.50 / Rs.91.95
+  Score      : 65
+  P&L        : Rs.1093.60
+  Exit reason: TRAIL_SL
+
+Trade 7: NIFTY21JUL2623950PE — ✅ WIN
+  Direction  : SELL
+  Pattern    : Spinning Top
+  Signal why : MED pattern, below VWAP, 5m EMA bear, 15m trend BEAR
+  Entry      : Rs.49.45 at 10:08:28
+  Exit       : Rs.47.25 at 11:13:44
+  Held for   : 65 min
+  High/Low   : Rs.49.45 / Rs.42.50
+  Score      : 65
+  P&L        : Rs.246.00
+  Exit reason: TRAIL_SL
+
+Trade 8: NIFTY21JUL2624000CE — ✅ WIN
+  Direction  : BUY
+  Pattern    : Hammer
+  Signal why : MED pattern, above VWAP, 5m EMA bull, 15m trend BULL
+  Entry      : Rs.256.30 at 10:10:02
+  Exit       : Rs.300.00 at 10:20:46
+  Held for   : 10 min
+  High/Low   : Rs.306.70 / Rs.254.65
+  Score      : 65
+  P&L        : Rs.5641.00
+  Exit reason: TRAIL_SL
+
+Trade 9: NIFTY21JUL2624050CE — ✅ WIN
+  Direction  : BUY
+  Pattern    : 3 Inside Up
+  Signal why : HIGH pattern, above VWAP, 5m EMA bull, 15m trend BULL
+  Entry      : Rs.232.15 at 10:13:28
+  Exit       : Rs.260.00 at 10:20:49
+  Held for   : 7 min
+  High/Low   : Rs.270.15 / Rs.226.55
+  Score      : 80
+  P&L        : Rs.3580.50
+  Exit reason: TRAIL_SL
+
+Trade 10: NIFTY21JUL2624050CE — ❌ LOSS
+  Direction  : BUY
+  Pattern    : Bull Harami
+  Signal why : MED pattern, above VWAP, 5m EMA bull, 15m trend BULL
+  Entry      : Rs.256.15 at 10:27:45
+  Exit       : Rs.256.12 at 10:37:52
+  Held for   : 10 min
+  High/Low   : Rs.276.60 / Rs.254.00
+  Score      : 65
+  P&L        : Rs.-43.90
+  Exit reason: TRAIL_SL
+
+Trade 11: NIFTY21JUL2624000CE — ❌ LOSS
+  Direction  : BUY
+  Pattern    : Bull Harami
+  Signal why : MED pattern, above VWAP, 5m EMA bull, 15m trend BULL
+  Entry      : Rs.296.45 at 10:28:16
+  Exit       : Rs.293.31 at 10:37:55
+  Held for   : 9 min
+  High/Low   : Rs.315.30 / Rs.290.50
+  Score      : 65
+  P&L        : Rs.-448.20
+  Exit reason: TRAIL_SL
+
+Trade 12: NIFTY21JUL2624150CE — ❌ LOSS
+  Direction  : BUY
+  Pattern    : Piercing
+  Signal why : MED pattern, above VWAP, 5m EMA bull, 15m trend BULL
+  Entry      : Rs.187.45 at 10:28:32
+  Exit       : Rs.185.45 at 10:37:58
+  Held for   : 9 min
+  High/Low   : Rs.203.80 / Rs.183.00
+  Score      : 65
+  P&L        : Rs.-300.00
+  Exit reason: TRAIL_SL
+
+Trade 13: NIFTY21JUL2623950CE — ❌ LOSS
+  Direction  : BUY
+  Pattern    : Bull Harami
+  Signal why : MED pattern, above VWAP, 5m EMA bull, 15m trend BULL
+  Entry      : Rs.339.90 at 10:28:48
+  Exit       : Rs.328.31 at 10:38:30
+  Held for   : 9 min
+  High/Low   : Rs.351.30 / Rs.327.90
+  Score      : 65
+  P&L        : Rs.-1546.70
+  Exit reason: TRAIL_SL
+
+Trade 14: NIFTY21JUL2624100CE — ❌ LOSS
+  Direction  : BUY
+  Pattern    : Bull Harami
+  Signal why : MED pattern, above VWAP, 5m EMA bull, 15m trend BULL
+  Entry      : Rs.219.10 at 10:41:01
+  Exit       : Rs.201.38 at 10:46:15
+  Held for   : 5 min
+  High/Low   : Rs.219.95 / Rs.201.10
+  Score      : 65
+  P&L        : Rs.-2343.60
+  Exit reason: TRAIL_SL
+
+Trade 15: NIFTY21JUL2624150CE — ❌ LOSS
+  Direction  : BUY
+  Pattern    : Spinning Top
+  Signal why : MED pattern, above VWAP, 5m EMA bull, 15m trend BULL
+  Entry      : Rs.168.35 at 10:51:02
+  Exit       : Rs.159.33 at 11:10:49
+  Held for   : 19 min
+  High/Low   : Rs.175.75 / Rs.159.10
+  Score      : 65
+  P&L        : Rs.-1212.60
+  Exit reason: TRAIL_SL
+
+Trade 16: NIFTY21JUL2624000CE — ❌ LOSS
+  Direction  : BUY
+  Pattern    : Spinning Top
+  Signal why : HIGH pattern, above VWAP, 5m EMA bull, 15m trend BULL
+  Entry      : Rs.275.25 at 10:56:02
+  Exit       : Rs.263.57 at 11:08:52
+  Held for   : 12 min
+  High/Low   : Rs.282.20 / Rs.262.80
+  Score      : 80
+  P&L        : Rs.-1558.40
+  Exit reason: TRAIL_SL
+
+Trade 17: NIFTY21JUL2624100PE — ❌ LOSS
+  Direction  : SELL
+  Pattern    : 3 Inside Down
+  Signal why : HIGH pattern, below VWAP, 5m EMA bear, 15m trend BEAR
+  Entry      : Rs.82.15 at 10:58:24
+  Exit       : Rs.86.24 at 11:08:55
+  Held for   : 10 min
+  High/Low   : Rs.87.55 / Rs.80.65
+  Score      : 80
+  P&L        : Rs.-571.70
+  Exit reason: TRAIL_SL
+
+Trade 18: NIFTY21JUL2624150PE — ❌ LOSS
+  Direction  : SELL
+  Pattern    : 3 Inside Down
+  Signal why : HIGH pattern, below VWAP, 5m EMA bear, 15m trend BEAR
+  Entry      : Rs.99.80 at 10:59:26
+  Exit       : Rs.104.65 at 11:08:57
+  Held for   : 9 min
+  High/Low   : Rs.106.00 / Rs.97.70
+  Score      : 80
+  P&L        : Rs.-670.50
+  Exit reason: TRAIL_SL
+
+Trade 19: NIFTY21JUL2623950CE — ❌ LOSS
+  Direction  : BUY
+  Pattern    : Spinning Top
+  Signal why : MED pattern, above VWAP, 5m EMA bull, 15m trend BULL
+  Entry      : Rs.319.50 at 11:05:59
+  Exit       : Rs.302.76 at 11:10:52
+  Held for   : 4 min
+  High/Low   : Rs.319.50 / Rs.301.50
+  Score      : 65
+  P&L        : Rs.-2216.20
+  Exit reason: TRAIL_SL
+
+Trade 20: NIFTY21JUL2624150CE — ✅ WIN
+  Direction  : BUY
+  Pattern    : Spinning Top
+  Signal why : MED pattern, above VWAP, 5m EMA bull, 15m trend BULL
+  Entry      : Rs.158.60 at 11:22:01
+  Exit       : Rs.177.00 at 12:00:52
+  Held for   : 38 min
+  High/Low   : Rs.184.60 / Rs.155.60
+  Score      : 65
+  P&L        : Rs.2352.00
+  Exit reason: TRAIL_SL
+
+Trade 21: NIFTY21JUL2624050PE — ✅ WIN
+  Direction  : SELL
+  Pattern    : Spinning Top
+  Signal why : HIGH pattern, below VWAP, 5m EMA bear, 15m trend BEAR
+  Entry      : Rs.70.45 at 11:22:33
+  Exit       : Rs.67.09 at 12:08:22
+  Held for   : 45 min
+  High/Low   : Rs.72.35 / Rs.62.95
+  Score      : 80
+  P&L        : Rs.396.80
+  Exit reason: TRAIL_SL
+
+Trade 22: NIFTY21JUL2624000CE — ❌ LOSS
+  Direction  : BUY
+  Pattern    : Hammer
+  Signal why : MED pattern, above VWAP, 5m EMA bull, 15m trend BULL
+  Entry      : Rs.293.00 at 11:57:52
+  Exit       : Rs.279.26 at 12:00:58
+  Held for   : 3 min
+  High/Low   : Rs.293.00 / Rs.278.20
+  Score      : 65
+  P&L        : Rs.-1826.20
+  Exit reason: TRAIL_SL
+
+Trade 23: NIFTY21JUL2623950CE — ❌ LOSS
+  Direction  : BUY
+  Pattern    : Inv Hammer
+  Signal why : MED pattern, above VWAP, 5m EMA bull, 15m trend BULL
+  Entry      : Rs.320.80 at 12:20:25
+  Exit       : Rs.321.00 at 12:40:06
+  Held for   : 19 min
+  High/Low   : Rs.331.70 / Rs.318.30
+  Score      : 65
+  P&L        : Rs.-14.00
+  Exit reason: TRAIL_SL
+
+Trade 24: NIFTY21JUL2624050PE — ✅ WIN
+  Direction  : SELL
+  Pattern    : Spinning Top
+  Signal why : MED pattern, below VWAP, 5m EMA bear, 15m trend BEAR
+  Entry      : Rs.65.95 at 12:21:13
+  Exit       : Rs.61.25 at 12:49:56
+  Held for   : 28 min
+  High/Low   : Rs.67.05 / Rs.58.55
+  Score      : 65
+  P&L        : Rs.571.00
+  Exit reason: TRAIL_SL
+
+Trade 25: NIFTY21JUL2623950PE — ✅ WIN
+  Direction  : SELL
+  Pattern    : Doji
+  Signal why : MED pattern, below VWAP, 5m EMA bear, 15m trend BEAR
+  Entry      : Rs.44.25 at 12:31:48
+  Exit       : Rs.41.89 at 12:50:17
+  Held for   : 18 min
+  High/Low   : Rs.44.85 / Rs.40.30
+  Score      : 65
+  P&L        : Rs.266.80
+  Exit reason: TRAIL_SL
+
+Trade 26: NIFTY21JUL2624100PE — ✅ WIN
+  Direction  : SELL
+  Pattern    : Bear Engulf
+  Signal why : HIGH pattern, below VWAP, 5m EMA bear, 15m trend BEAR
+  Entry      : Rs.79.35 at 12:34:43
+  Exit       : Rs.76.36 at 12:50:20
+  Held for   : 15 min
+  High/Low   : Rs.82.00 / Rs.73.05
+  Score      : 80
+  P&L        : Rs.348.70
+  Exit reason: TRAIL_SL
+
+Trade 27: NIFTY21JUL2624000CE — ❌ LOSS
+  Direction  : BUY
+  Pattern    : 3 Inside Up
+  Signal why : HIGH pattern, above VWAP, 5m EMA bull, volume surge, 15m trend BULL
+  Entry      : Rs.304.50 at 12:50:09
+  Exit       : Rs.289.58 at 12:51:10
+  Held for   : 1 min
+  High/Low   : Rs.304.50 / Rs.289.30
+  Score      : 90
+  P&L        : Rs.-1979.60
+  Exit reason: TRAIL_SL
+
+Trade 28: NIFTY21JUL2624150PE — ❌ LOSS
+  Direction  : SELL
+  Pattern    : Bear Harami
+  Signal why : MED pattern, below VWAP, 5m EMA bear, 15m trend BEAR
+  Entry      : Rs.97.10 at 12:55:14
+  Exit       : Rs.98.17 at 13:24:57
+  Held for   : 29 min
+  High/Low   : Rs.99.20 / Rs.92.85
+  Score      : 65
+  P&L        : Rs.-179.10
+  Exit reason: TRAIL_SL
+
+Trade 29: NIFTY21JUL2624100CE — ❌ LOSS
+  Direction  : BUY
+  Pattern    : Bull Harami
+  Signal why : MED pattern, above VWAP, 5m EMA bull, 15m trend BULL
+  Entry      : Rs.208.80 at 12:56:48
+  Exit       : Rs.203.12 at 13:15:49
+  Held for   : 19 min
+  High/Low   : Rs.217.00 / Rs.201.35
+  Score      : 65
+  P&L        : Rs.-778.40
+  Exit reason: TRAIL_SL
+
+Trade 30: NIFTY21JUL2624150CE — ❌ LOSS
+  Direction  : BUY
+  Pattern    : Bull Harami
+  Signal why : MED pattern, above VWAP, 5m EMA bull, 15m trend BULL
+  Entry      : Rs.180.50 at 12:58:23
+  Exit       : Rs.171.74 at 13:16:04
+  Held for   : 17 min
+  High/Low   : Rs.185.05 / Rs.169.00
+  Score      : 65
+  P&L        : Rs.-1178.80
+  Exit reason: TRAIL_SL
+
+Trade 31: NIFTY21JUL2623950CE — ❌ LOSS
+  Direction  : BUY
+  Pattern    : Bull Harami
+  Signal why : MED pattern, above VWAP, 5m EMA bull, 15m trend BULL
+  Entry      : Rs.326.25 at 12:58:39
+  Exit       : Rs.318.13 at 13:16:07
+  Held for   : 17 min
+  High/Low   : Rs.333.90 / Rs.315.90
+  Score      : 65
+  P&L        : Rs.-1095.60
+  Exit reason: TRAIL_SL
+
+Trade 32: NIFTY21JUL2624050PE — ❌ LOSS
+  Direction  : SELL
+  Pattern    : Bear Harami
+  Signal why : MED pattern, below VWAP, 5m EMA bear, 15m trend BEAR
+  Entry      : Rs.64.95 at 12:58:55
+  Exit       : Rs.66.84 at 13:24:59
+  Held for   : 26 min
+  High/Low   : Rs.67.50 / Rs.63.00
+  Score      : 65
+  P&L        : Rs.-285.70
+  Exit reason: TRAIL_SL
+
+Trade 33: NIFTY21JUL2624050CE — ❌ LOSS
+  Direction  : BUY
+  Pattern    : Doji
+  Signal why : HIGH pattern, above VWAP, 5m EMA bull, 15m trend BULL
+  Entry      : Rs.252.10 at 13:01:34
+  Exit       : Rs.239.17 at 13:16:12
+  Held for   : 14 min
+  High/Low   : Rs.253.25 / Rs.238.85
+  Score      : 80
+  P&L        : Rs.-1720.90
+  Exit reason: TRAIL_SL
+
+Trade 34: NIFTY21JUL2624100PE — ❌ LOSS
+  Direction  : SELL
+  Pattern    : Bear Engulf
+  Signal why : HIGH pattern, below VWAP, 5m EMA bear, 15m trend BEAR
+  Entry      : Rs.77.15 at 13:07:08
+  Exit       : Rs.81.04 at 13:25:02
+  Held for   : 17 min
+  High/Low   : Rs.81.95 / Rs.76.70
+  Score      : 80
+  P&L        : Rs.-545.70
+  Exit reason: TRAIL_SL
+
+Trade 35: NIFTY21JUL2624000PE — ❌ LOSS
+  Direction  : SELL
+  Pattern    : Spinning Top
+  Signal why : MED pattern, below VWAP, 5m EMA bear, 15m trend BEAR
+  Entry      : Rs.52.00 at 13:07:24
+  Exit       : Rs.54.74 at 13:15:43
+  Held for   : 8 min
+  High/Low   : Rs.54.75 / Rs.52.00
+  Score      : 65
+  P&L        : Rs.-396.20
+  Exit reason: TRAIL_SL
+
+Trade 36: NIFTY21JUL2624000CE — ❌ LOSS
+  Direction  : BUY
+  Pattern    : Piercing
+  Signal why : MED pattern, above VWAP, 5m EMA bull, 15m trend BULL
+  Entry      : Rs.284.85 at 13:12:23
+  Exit       : Rs.273.27 at 13:24:41
+  Held for   : 12 min
+  High/Low   : Rs.286.60 / Rs.270.00
+  Score      : 65
+  P&L        : Rs.-1545.40
+  Exit reason: TRAIL_SL
+
+Trade 37: NIFTY21JUL2624100PE — ❌ LOSS
+  Direction  : SELL
+  Pattern    : Doji
+  Signal why : MED pattern, below VWAP, 5m EMA bear, 15m trend BEAR
+  Entry      : Rs.82.00 at 13:27:05
+  Exit       : Rs.82.34 at 13:40:25
+  Held for   : 13 min
+  High/Low   : Rs.82.80 / Rs.78.15
+  Score      : 65
+  P&L        : Rs.-84.20
+  Exit reason: TRAIL_SL
+
+Trade 38: NIFTY21JUL2624050PE — ❌ LOSS
+  Direction  : SELL
+  Pattern    : Spinning Top
+  Signal why : MED pattern, below VWAP, 5m EMA bear, 15m trend BEAR
+  Entry      : Rs.66.70 at 13:30:14
+  Exit       : Rs.67.49 at 13:40:27
+  Held for   : 10 min
+  High/Low   : Rs.67.55 / Rs.64.20
+  Score      : 65
+  P&L        : Rs.-142.70
+  Exit reason: TRAIL_SL
+
+Trade 39: NIFTY21JUL2624150PE — ❌ LOSS
+  Direction  : SELL
+  Pattern    : Spinning Top
+  Signal why : HIGH pattern, below VWAP, 5m EMA bear, 15m trend BEAR
+  Entry      : Rs.98.00 at 13:31:33
+  Exit       : Rs.100.77 at 13:40:46
+  Held for   : 9 min
+  High/Low   : Rs.101.60 / Rs.95.95
+  Score      : 80
+  P&L        : Rs.-400.10
+  Exit reason: TRAIL_SL
+
+Trade 40: NIFTY21JUL2624050PE — ✅ WIN
+  Direction  : SELL
+  Pattern    : Doji
+  Signal why : MED pattern, RSI 61 overbought, below VWAP, volume surge, 15m trend BEAR
+  Entry      : Rs.70.55 at 13:54:23
+  Exit       : Rs.47.05 at 14:19:20
+  Held for   : 24 min
+  High/Low   : Rs.70.95 / Rs.43.10
+  Score      : 80
+  P&L        : Rs.3015.00
+  Exit reason: TRAIL_SL
+
+Trade 41: NIFTY21JUL2624050CE — ✅ WIN
+  Direction  : BUY
+  Pattern    : Bull Engulf
+  Signal why : HIGH pattern, RSI 19 oversold, 15m trend BULL
+  Entry      : Rs.207.75 at 13:55:57
+  Exit       : Rs.320.00 at 14:18:22
+  Held for   : 22 min
+  High/Low   : Rs.338.35 / Rs.203.30
+  Score      : 70
+  P&L        : Rs.14552.50
+  Exit reason: TRAIL_SL
+
+Trade 42: NIFTY21JUL2624150CE — ✅ WIN
+  Direction  : BUY
+  Pattern    : Bull Engulf
+  Signal why : HIGH pattern, RSI 19 oversold, 15m trend BULL
+  Entry      : Rs.143.40 at 13:58:03
+  Exit       : Rs.235.00 at 14:19:23
+  Held for   : 21 min
+  High/Low   : Rs.257.55 / Rs.141.15
+  Score      : 70
+  P&L        : Rs.11868.00
+  Exit reason: TRAIL_SL
+
+Trade 43: NIFTY21JUL2624100PE — ✅ WIN
+  Direction  : SELL
+  Pattern    : Evening Star
+  Signal why : HIGH pattern, RSI 69 overbought, below VWAP, 15m trend BEAR
+  Entry      : Rs.84.60 at 13:58:51
+  Exit       : Rs.58.44 at 14:19:13
+  Held for   : 20 min
+  High/Low   : Rs.84.60 / Rs.53.40
+  Score      : 85
+  P&L        : Rs.3360.80
+  Exit reason: TRAIL_SL
+
+Trade 44: NIFTY21JUL2624000PE — ✅ WIN
+  Direction  : SELL
+  Pattern    : 3 Inside Down
+  Signal why : HIGH pattern, below VWAP, volume surge, 15m trend BEAR
+  Entry      : Rs.52.15 at 13:59:40
+  Exit       : Rs.39.46 at 14:19:57
+  Held for   : 20 min
+  High/Low   : Rs.53.45 / Rs.35.80
+  Score      : 80
+  P&L        : Rs.1609.70
+  Exit reason: TRAIL_SL
+
+Trade 45: NIFTY21JUL2624150PE — ✅ WIN
+  Direction  : SELL
+  Pattern    : Evening Star
+  Signal why : HIGH pattern, below VWAP, volume surge, at 5m resistance, 15m trend BEAR
+  Entry      : Rs.97.00 at 13:59:56
+  Exit       : Rs.70.13 at 14:19:02
+  Held for   : 19 min
+  High/Low   : Rs.101.45 / Rs.63.15
+  Score      : 90
+  P&L        : Rs.3453.10
+  Exit reason: TRAIL_SL
+
+Trade 46: NIFTY21JUL2623950CE — ✅ WIN
+  Direction  : BUY
+  Pattern    : Inv Hammer
+  Signal why : MED pattern, RSI 33 oversold, above VWAP, 15m trend BULL
+  Entry      : Rs.300.30 at 14:06:19
+  Exit       : Rs.400.00 at 14:19:05
+  Held for   : 12 min
+  High/Low   : Rs.427.40 / Rs.295.00
+  Score      : 70
+  P&L        : Rs.12921.00
+  Exit reason: TRAIL_SL
+
+Trade 47: NIFTY21JUL2624050CE — ❌ LOSS
+  Direction  : BUY
+  Pattern    : Inv Hammer
+  Signal why : MED pattern, above VWAP, 5m EMA bull, 15m trend BULL
+  Entry      : Rs.286.50 at 14:20:50
+  Exit       : Rs.263.97 at 14:24:00
+  Held for   : 3 min
+  High/Low   : Rs.288.80 / Rs.263.65
+  Score      : 65
+  P&L        : Rs.-2968.90
+  Exit reason: TRAIL_SL
+
+Trade 48: NIFTY21JUL2624150CE — ❌ LOSS
+  Direction  : BUY
+  Pattern    : Bull Harami
+  Signal why : MED pattern, above VWAP, 5m EMA bull, 15m trend BULL
+  Entry      : Rs.206.95 at 14:26:34
+  Exit       : Rs.207.00 at 14:54:10
+  Held for   : 27 min
+  High/Low   : Rs.217.75 / Rs.191.25
+  Score      : 65
+  P&L        : Rs.-33.50
+  Exit reason: TRAIL_SL
+
+Trade 49: NIFTY21JUL2623950CE — ❌ LOSS
+  Direction  : BUY
+  Pattern    : Piercing
+  Signal why : MED pattern, above VWAP, 5m EMA bull, 15m trend BULL
+  Entry      : Rs.361.95 at 14:26:50
+  Exit       : Rs.362.00 at 15:00:17
+  Held for   : 33 min
+  High/Low   : Rs.379.35 / Rs.346.35
+  Score      : 65
+  P&L        : Rs.-33.50
+  Exit reason: TRAIL_SL
+
+Trade 50: NIFTY21JUL2624050PE — ✅ WIN
+  Direction  : SELL
+  Pattern    : Bear Harami
+  Signal why : MED pattern, below VWAP, 5m EMA bear, 15m trend BEAR
+  Entry      : Rs.50.85 at 14:27:37
+  Exit       : Rs.47.55 at 15:15:15
+  Held for   : 47 min
+  High/Low   : Rs.55.25 / Rs.42.45
+  Score      : 65
+  P&L        : Rs.389.00
+  Exit reason: SQUARE_OFF
+
+Trade 51: NIFTY21JUL2624100PE — ✅ WIN
+  Direction  : SELL
+  Pattern    : Bear Engulf
+  Signal why : HIGH pattern, below VWAP, 5m EMA bear, 15m trend BEAR
+  Entry      : Rs.63.70 at 14:34:15
+  Exit       : Rs.59.30 at 15:15:18
+  Held for   : 41 min
+  High/Low   : Rs.65.15 / Rs.52.90
+  Score      : 80
+  P&L        : Rs.532.00
+  Exit reason: SQUARE_OFF
+
+Trade 52: NIFTY21JUL2624150PE — ✅ WIN
+  Direction  : SELL
+  Pattern    : Bear Engulf
+  Signal why : HIGH pattern, below VWAP, 5m EMA bear, 15m trend BEAR
+  Entry      : Rs.77.65 at 14:35:02
+  Exit       : Rs.71.90 at 15:15:21
+  Held for   : 40 min
+  High/Low   : Rs.80.15 / Rs.65.15
+  Score      : 80
+  P&L        : Rs.707.50
+  Exit reason: SQUARE_OFF
+
+Trade 53: NIFTY21JUL2624100CE — ✅ WIN
+  Direction  : BUY
+  Pattern    : Inv Hammer
+  Signal why : HIGH pattern, above VWAP, 5m EMA bull, 15m trend BULL
+  Entry      : Rs.236.50 at 14:40:48
+  Exit       : Rs.250.00 at 15:14:55
+  Held for   : 34 min
+  High/Low   : Rs.258.40 / Rs.234.40
+  Score      : 80
+  P&L        : Rs.1715.00
+  Exit reason: TRAIL_SL
+
+Trade 54: NIFTY21JUL2624000CE — ✅ WIN
+  Direction  : BUY
+  Pattern    : Doji
+  Signal why : MED pattern, above VWAP, 5m EMA bull, 15m trend BULL
+  Entry      : Rs.314.00 at 14:41:04
+  Exit       : Rs.335.00 at 15:13:27
+  Held for   : 32 min
+  High/Low   : Rs.343.50 / Rs.314.00
+  Score      : 65
+  P&L        : Rs.2690.00
+  Exit reason: TRAIL_SL
+
+Trade 55: NIFTY21JUL2623950PE — ❌ LOSS
+  Direction  : SELL
+  Pattern    : Dark Cloud
+  Signal why : MED pattern, below VWAP, 5m EMA bear, 15m trend BEAR
+  Entry      : Rs.29.60 at 15:02:07
+  Exit       : Rs.30.25 at 15:15:24
+  Held for   : 13 min
+  High/Low   : Rs.30.25 / Rs.27.35
+  Score      : 65
+  P&L        : Rs.-124.50
+  Exit reason: SQUARE_OFF
+
+Trade 56: NIFTY21JUL2624000PE — ✅ WIN
+  Direction  : SELL
+  Pattern    : Spinning Top
+  Signal why : MED pattern, below VWAP, 5m EMA bear, 15m trend BEAR
+  Entry      : Rs.38.05 at 15:04:29
+  Exit       : Rs.36.05 at 15:15:00
+  Held for   : 10 min
+  High/Low   : Rs.38.05 / Rs.34.20
+  Score      : 65
+  P&L        : Rs.220.00
+  Exit reason: SQUARE_OFF
+
+PEAK ANALYSIS
+--------------------------------------------------------------------------------
+Symbol                     Dir     Entry    Peak    Exit  Available       Got    Missed
+--------------------------------------------------------------------------------
+NIFTY21JUL2624050CE        BUY    207.75  338.35  320.00   16978.00  14552.50   2425.50
+NIFTY21JUL2623950CE        BUY    300.30  427.40  400.00   16523.00  12921.00   3602.00
+NIFTY21JUL2624150CE        BUY    143.40  257.55  235.00   14839.50  11868.00   2971.50
+NIFTY21JUL2624000CE        BUY    256.30  306.70  300.00    6552.00   5641.00    911.00
+NIFTY21JUL2623950CE        BUY    289.65  348.80  330.00    7689.50   5205.50   2484.00
+NIFTY21JUL2624150CE        BUY    150.25  200.10  190.00    6480.50   5127.50   1353.00
+NIFTY21JUL2624050CE        BUY    232.15  270.15  260.00    4940.00   3580.50   1359.50
+NIFTY21JUL2624150PE        SELL    97.00   63.15   70.13    4400.50   3453.10    947.40
+NIFTY21JUL2624100PE        SELL    84.60   53.40   58.44    4056.00   3360.80    695.20
+NIFTY21JUL2624050PE        SELL    70.55   43.10   47.05    3568.50   3015.00    553.50
+NIFTY21JUL2624000CE        BUY    314.00  343.50  335.00    3835.00   2690.00   1145.00
+NIFTY21JUL2624150CE        BUY    158.60  184.60  177.00    3380.00   2352.00   1028.00
+NIFTY21JUL2624100CE        BUY    236.50  258.40  250.00    2847.00   1715.00   1132.00
+NIFTY21JUL2624000PE        SELL    52.15   35.80   39.46    2125.50   1609.70    515.80
+NIFTY21JUL2624150PE        SELL   110.50   91.95  101.78    2411.50   1093.60   1317.90
+NIFTY21JUL2624150PE        SELL    77.65   65.15   71.90    1625.00    707.50    917.50
+NIFTY21JUL2624100PE        SELL    90.75   76.90   85.27    1800.50    672.40   1128.10
+NIFTY21JUL2624050PE        SELL    65.95   58.55   61.25     962.00    571.00    391.00
+NIFTY21JUL2624100PE        SELL    63.70   52.90   59.30    1404.00    532.00    872.00
+NIFTY21JUL2624050PE        SELL    70.45   62.95   67.09     975.00    396.80    578.20
+NIFTY21JUL2624050PE        SELL    50.85   42.45   47.55    1092.00    389.00    703.00
+NIFTY21JUL2624100PE        SELL    79.35   73.05   76.36     819.00    348.70    470.30
+NIFTY21JUL2624050PE        SELL    73.45   63.70   70.58    1267.50    333.10    934.40
+NIFTY21JUL2623950PE        SELL    44.25   40.30   41.89     513.50    266.80    246.70
+NIFTY21JUL2623950PE        SELL    49.45   42.50   47.25     903.50    246.00    657.50
+NIFTY21JUL2624000PE        SELL    38.05   34.20   36.05     500.50    220.00    280.50
+NIFTY21JUL2624000PE        SELL    60.00   52.45   58.23     981.50    190.10    791.40
+NIFTY21JUL2623950CE        BUY    320.80  331.70  321.00    1417.00    -14.00   1431.00
+NIFTY21JUL2624150CE        BUY    206.95  217.75  207.00    1404.00    -33.50   1437.50
+NIFTY21JUL2623950CE        BUY    361.95  379.35  362.00    2262.00    -33.50   2295.50
+NIFTY21JUL2624050CE        BUY    256.15  276.60  256.12    2658.50    -43.90   2702.40
+NIFTY21JUL2624100PE        SELL    82.00   78.15   82.34     500.50    -84.20    584.70
+NIFTY21JUL2623950PE        SELL    29.60   27.35   30.25     292.50   -124.50    417.00
+NIFTY21JUL2624050PE        SELL    66.70   64.20   67.49     325.00   -142.70    467.70
+NIFTY21JUL2624150PE        SELL    97.10   92.85   98.17     552.50   -179.10    731.60
+NIFTY21JUL2624050PE        SELL    64.95   63.00   66.84     253.50   -285.70    539.20
+NIFTY21JUL2624150CE        BUY    187.45  203.80  185.45    2125.50   -300.00   2425.50
+NIFTY21JUL2624000PE        SELL    52.00   52.00   54.74       0.00   -396.20    396.20
+NIFTY21JUL2624150PE        SELL    98.00   95.95  100.77     266.50   -400.10    666.60
+NIFTY21JUL2624000CE        BUY    296.45  315.30  293.31    2450.50   -448.20   2898.70
+NIFTY21JUL2624100PE        SELL    77.15   76.70   81.04      58.50   -545.70    604.20
+NIFTY21JUL2624100PE        SELL    82.15   80.65   86.24     195.00   -571.70    766.70
+NIFTY21JUL2624150PE        SELL    99.80   97.70  104.65     273.00   -670.50    943.50
+NIFTY21JUL2624100CE        BUY    208.80  217.00  203.12    1066.00   -778.40   1844.40
+NIFTY21JUL2623950CE        BUY    326.25  333.90  318.13     994.50  -1095.60   2090.10
+NIFTY21JUL2624150CE        BUY    180.50  185.05  171.74     591.50  -1178.80   1770.30
+NIFTY21JUL2624150CE        BUY    168.35  175.75  159.33     962.00  -1212.60   2174.60
+NIFTY21JUL2624000CE        BUY    284.85  286.60  273.27     227.50  -1545.40   1772.90
+NIFTY21JUL2623950CE        BUY    339.90  351.30  328.31    1482.00  -1546.70   3028.70
+NIFTY21JUL2624000CE        BUY    275.25  282.20  263.57     903.50  -1558.40   2461.90
+NIFTY21JUL2624050CE        BUY    252.10  253.25  239.17     149.50  -1720.90   1870.40
+NIFTY21JUL2624000CE        BUY    293.00  293.00  279.26       0.00  -1826.20   1826.20
+NIFTY21JUL2624000CE        BUY    304.50  304.50  289.58       0.00  -1979.60   1979.60
+NIFTY21JUL2623950CE        BUY    319.50  319.50  302.76       0.00  -2216.20   2216.20
+NIFTY21JUL2624100CE        BUY    219.10  219.95  201.38     110.50  -2343.60   2454.10
+NIFTY21JUL2624050CE        BUY    286.50  288.80  263.97     299.00  -2968.90   3267.90
+--------------------------------------------------------------------------------
+TOTAL                                                     135291.00  56813.80  78477.20
+
+Efficiency: 42.0% of available profit captured
+
+EXIT REASON BREAKDOWN
+--------------------------------------------------
+SQUARE_OFF        5 trades | 4W 1L | Rs.1,724.00
+TRAIL_SL         51 trades | 23W 28L | Rs.55,089.80
+
+PATTERN BREAKDOWN
+--------------------------------------------------
+3 Inside Down               3 trades | 1W 2L | Rs.367.50
+3 Inside Up                 2 trades | 1W 1L | Rs.1,600.90
+Bear Engulf                 4 trades | 3W 1L | Rs.1,042.50
+Bear Harami                 6 trades | 4W 2L | Rs.1,880.30
+Bull Engulf                 2 trades | 2W 0L | Rs.26,420.50
+Bull Harami                10 trades | 2W 8L | Rs.2,864.30
+Dark Cloud                  2 trades | 1W 1L | Rs.208.60
+Doji                        5 trades | 3W 2L | Rs.4,166.70
+Evening Star                2 trades | 2W 0L | Rs.6,813.90
+Hammer                      2 trades | 1W 1L | Rs.3,814.80
+Inv Hammer                  4 trades | 2W 2L | Rs.11,653.10
+Piercing                    3 trades | 0W 3L | Rs.-1,878.90
+Spinning Top               11 trades | 5W 6L | Rs.-2,140.40
+
+TIME OF DAY ANALYSIS
+--------------------------------------------------
+10:00 - 11:00   18 trades | 9W 9L | Rs.13,394.10
+11:00 - 12:00    4 trades | 2W 2L | Rs.-1,293.60
+12:00 - 13:00   10 trades | 3W 7L | Rs.-4,324.70
+13:00 - 14:00   13 trades | 6W 7L | Rs.33,023.90
+14:00 - 15:00    9 trades | 6W 3L | Rs.15,918.60
+15:00 - 16:00    2 trades | 1W 1L | Rs.95.50
+
+SIGNAL SCORE ANALYSIS
+--------------------------------------------------
+Score >= 65:  56 trades | 27W 29L | Rs.56,813.80
+
+======================================================================
+ ✅ PROFITABLE DAY — Net Rs.56,813.80
+ Trades:56 | Wins:27 | Losses:29 | Win rate:48.2% | Efficiency:42.0%
+======================================================================
+
