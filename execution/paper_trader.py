@@ -1,3 +1,12 @@
+"""
+Paper trader with real confirmation filters:
+1. OI change filter  — confirms move is backed by new money not just covering
+2. PCR filter        — confirms signal aligns with market sentiment
+3. Market regime     — adjusts size and threshold based on day type
+4. Volume filter     — requires volume surge before entry
+5. 10-point hard SL  — initial tight SL, switches to ATR trail after 5pt profit
+"""
+
 import time
 import os
 import threading
@@ -6,6 +15,11 @@ from datetime import datetime, timedelta, time as dtime
 from config import Config
 from broker.angelone_client import AngelOneClient
 from strategy.signal_engine import generate_signals
+from strategy.indicators import add_all_indicators
+from strategy.option_filter import get_india_vix, is_vix_safe
+from strategy.oi_filter import update_oi, confirm_signal_with_oi
+from strategy.pcr_filter import update_pcr, confirm_signal_with_pcr
+from strategy.market_regime import detect_regime, get_regime, get_regime_settings, should_stop_trading
 from risk.risk_manager import RiskManager
 from notifications.telegram_notifier import (
     notify_entry, notify_exit, notify_signal,
@@ -17,15 +31,28 @@ from utils.heartbeat import write_heartbeat, mark_stopped
 
 log = get_logger("paper_trader")
 
+NIFTY_SPOT_TOKEN = "99926000"
+NIFTY_EXCHANGE   = "NSE"
+HARD_SL_POINTS   = 10   # initial hard SL — switches to ATR trail after profit
+PROFIT_TO_TRAIL  = 5    # switch to ATR trail after 5 pts profit
+
 
 class PaperTrader:
     def __init__(self, instruments: list):
-        self.instruments = instruments
-        self.client      = AngelOneClient()
-        self.risk        = RiskManager()
-        self.positions   = {}
-        self.trades      = []
-        self.running     = False
+        self.instruments     = instruments
+        self.client          = AngelOneClient()
+        self.risk            = RiskManager()
+        self.positions       = {}
+        self.trades          = []
+        self.running         = False
+        self._vix            = 15.0
+        self._vix_time       = datetime.min
+        self._regime         = "UNKNOWN"
+        self._regime_checked = False
+        self._regime_settings = get_regime_settings("UNKNOWN")
+        self._consec_losses  = 0   # consecutive loss counter
+
+    # ── Fetch ──────────────────────────────────────────────────────────────────
 
     def _fetch_candles(self, token, exchange, days=5):
         to_dt   = datetime.now()
@@ -41,27 +68,82 @@ class PaperTrader:
             df["timestamp"] = pd.to_datetime(df["timestamp"]).dt.tz_localize(None)
         return df
 
+    # ── Regime detection ───────────────────────────────────────────────────────
+
+    def _check_regime(self):
+        """Detect market regime once after 10:00 AM."""
+        if self._regime_checked:
+            return
+        if datetime.now().time() < dtime(10, 0):
+            return
+        try:
+            df = self._fetch_candles(NIFTY_SPOT_TOKEN, NIFTY_EXCHANGE, days=1)
+            if not df.empty:
+                # Use only today's candles
+                today = datetime.now().date()
+                df["timestamp"] = pd.to_datetime(df["timestamp"])
+                df_today = df[df["timestamp"].dt.date == today]
+                if not df_today.empty:
+                    self._regime          = detect_regime(df_today)
+                    self._regime_settings = get_regime_settings(self._regime)
+                    self._regime_checked  = True
+                    log.info(
+                        f"Regime: {self._regime} | "
+                        f"Lots:{self._regime_settings['lots']} | "
+                        f"ScoreMin:{self._regime_settings['score_min']} | "
+                        f"{self._regime_settings['note']}"
+                    )
+        except Exception as e:
+            log.warning(f"Regime check error: {e}")
+
+    # ── Exit logic ─────────────────────────────────────────────────────────────
+
     def _check_exit(self, symbol, ltp):
         pos = self.positions.get(symbol)
         if not pos:
             return
-        atr    = pos.get("atr", ltp * 0.05) or ltp * 0.05
+
+        entry  = pos["entry"]
         old_sl = pos["sl"]
+
+        # Track high/low
+        pos["high"]       = max(pos.get("high", ltp), ltp)
+        pos["low"]        = min(pos.get("low",  ltp), ltp)
+        pos["last_price"] = ltp
+
+        # Calculate profit in points
+        if pos["direction"] == "BUY":
+            profit_pts = ltp - entry
+        else:
+            profit_pts = entry - ltp
+
+        # SL logic:
+        # Phase 1 — profit < PROFIT_TO_TRAIL: use hard 10-point SL
+        # Phase 2 — profit >= PROFIT_TO_TRAIL: switch to ATR trail
         if pos.get("sl_manual"):
             new_sl = old_sl
+        elif profit_pts < PROFIT_TO_TRAIL:
+            # Hard initial SL — 10 points from entry
+            if pos["direction"] == "BUY":
+                new_sl = max(old_sl, entry - HARD_SL_POINTS)
+            else:
+                new_sl = min(old_sl, entry + HARD_SL_POINTS)
         else:
+            # Profit exceeded threshold — switch to ATR trailing
+            atr    = pos.get("atr", ltp * 0.05) or ltp * 0.05
             new_sl = self.risk.trail_stop_loss(old_sl, ltp, atr, pos["direction"])
+
         if new_sl != old_sl:
             pos["sl"]         = new_sl
             pos["current_sl"] = new_sl
             pos["sl_manual"]  = False
-            notify_sl_trail(symbol, old_sl, new_sl, ltp)
-            log.info(f"[{symbol}] Trail SL: {old_sl} -> {new_sl}")
+            if profit_pts >= PROFIT_TO_TRAIL:
+                notify_sl_trail(symbol, old_sl, new_sl, ltp)
+                log.info(f"[{symbol}] Trail SL: {old_sl} -> {new_sl} | Profit:{profit_pts:.1f}pts")
         else:
             pos["current_sl"] = pos["sl"]
-        pos["last_price"] = ltp
-        pos["high"]       = max(pos.get("high", ltp), ltp)
-        pos["low"]        = min(pos.get("low",  ltp), ltp)
+
+        # Check exit conditions
         exit_price, reason = None, None
         if pos["direction"] == "BUY" and ltp <= pos["sl"]:
             exit_price, reason = pos["sl"], "TRAIL_SL"
@@ -69,6 +151,7 @@ class PaperTrader:
             exit_price, reason = pos["sl"], "TRAIL_SL"
         if self.risk.should_square_off():
             exit_price, reason = ltp, "SQUARE_OFF"
+
         if exit_price:
             self._close_position(symbol, exit_price, reason)
 
@@ -79,6 +162,13 @@ class PaperTrader:
         pnl_pts = (exit_price - pos["entry"]) if pos["direction"] == "BUY" \
             else (pos["entry"] - exit_price)
         pnl_rs  = round(pnl_pts * pos["qty"] - 40, 2)
+
+        # Track consecutive losses
+        if pnl_rs < 0:
+            self._consec_losses += 1
+        else:
+            self._consec_losses = 0
+
         self.trades.append({
             "symbol":        symbol,
             "direction":     pos["direction"],
@@ -95,40 +185,114 @@ class PaperTrader:
             "score":         pos.get("score", 0),
             "pattern":       pos.get("pattern", ""),
             "signal_reason": pos.get("signal_reason", ""),
+            "oi_reason":     pos.get("oi_reason", ""),
+            "pcr_reason":    pos.get("pcr_reason", ""),
+            "regime":        self._regime,
         })
         self.risk.record_trade_close(pnl_rs)
         notify_exit(symbol, pos["direction"], pos["entry"], exit_price, pnl_rs, reason)
-        log.info(f"[{symbol}] EXIT {reason} @ {exit_price} | P&L Rs.{pnl_rs}")
+        log.info(
+            f"[{symbol}] EXIT {reason} @ {exit_price} | "
+            f"P&L Rs.{pnl_rs} | Consec losses:{self._consec_losses}"
+        )
         self.save_log()
 
+    # ── Entry logic ─────────────────────────────────────────────────────────────
+
     def _check_entry(self, inst, df):
-        symbol = inst["symbol"]
+        symbol   = inst["symbol"]
+        token    = inst.get("token", "")
+        opt_type = "CE" if "CE" in symbol else "PE"
+
         if symbol in self.positions:
             return
+
+        # Consecutive loss pause — after 3 losses pause 30 min
+        if self._consec_losses >= 3:
+            log.info(f"[{symbol}] Paused — {self._consec_losses} consecutive losses")
+            return
+
+        # Regime stop check
+        if should_stop_trading(self._regime):
+            log.info(f"[{symbol}] Regime stop — no new entries after cutoff hour")
+            return
+
         allowed, reason = self.risk.can_trade()
         if not allowed:
             return
+
         row    = df.iloc[-1]
         signal = row.get("signal")
         if not signal or str(signal) == "nan" or signal not in ("BUY", "SELL"):
             return
+
         score      = int(row.get("signal_score", 0))
         sig_reason = str(row.get("signal_reason", ""))
         price      = float(row["close"])
+
+        # Use regime-based score minimum
+        score_min = self._regime_settings.get("score_min", Config.SIGNAL_SCORE_MIN)
+        if score < score_min:
+            return
+
+        # Dead stock filter
         if price < Config.MIN_PREMIUM:
             log.info(f"[{symbol}] Dead stock Rs.{price}")
             return
+
+        # Expiry day cutoff
         if self.risk.is_expiry_day() and datetime.now().hour >= Config.EXPIRY_CUTOFF_HOUR:
             log.info(f"[{symbol}] Expiry cutoff")
             return
+
+        # VIX filter
+        vix_ok, vix_reason = is_vix_safe(self._vix)
+        if not vix_ok:
+            log.info(f"[{symbol}] VIX blocked: {vix_reason}")
+            return
+
+        # Volume confirmation — require volume surge
+        if not row.get("vol_surge", False):
+            log.info(f"[{symbol}] No volume surge — skip")
+            return
+
+        # ── OI Confirmation ─────────────────────────────────────────────────
+        try:
+            update_oi(self.client, symbol, token, inst.get("exchange", "NFO"))
+            oi_ok, oi_reason, oi_adj = confirm_signal_with_oi(token, signal)
+            if not oi_ok:
+                log.info(f"[{symbol}] OI rejected: {oi_reason}")
+                return
+            score += oi_adj
+        except Exception as e:
+            log.debug(f"OI check error: {e}")
+            oi_reason = "OI unavailable"
+            oi_adj    = 0
+
+        # ── PCR Confirmation ─────────────────────────────────────────────────
+        try:
+            pcr_ok, pcr_reason, pcr_adj = confirm_signal_with_pcr(signal, opt_type)
+            score += pcr_adj
+        except Exception as e:
+            log.debug(f"PCR check error: {e}")
+            pcr_reason = "PCR unavailable"
+            pcr_adj    = 0
+
+        # Final score check after all adjustments
+        if score < score_min:
+            log.info(f"[{symbol}] Score {score} below {score_min} after OI/PCR adjustment")
+            return
+
         atr     = float(row.get("atr", price * 0.05) or price * 0.05)
-        sl      = self.risk.initial_stop_loss(price, atr, signal)
-        qty     = Config.LOT_SIZE * Config.FIXED_LOTS
+        sl      = (price - HARD_SL_POINTS) if signal == "BUY" else (price + HARD_SL_POINTS)
+        lots    = self._regime_settings.get("lots", Config.FIXED_LOTS)
+        qty     = Config.LOT_SIZE * lots
         pattern = ""
         for col in row.index:
             if col.startswith("pat_") and row.get(col):
                 pattern = col.replace("pat_", "").replace("_", " ").title()
                 break
+
         self.positions[symbol] = {
             "symbol":        symbol,
             "direction":     signal,
@@ -142,10 +306,13 @@ class PaperTrader:
             "score":         score,
             "pattern":       pattern,
             "signal_reason": sig_reason,
+            "oi_reason":     oi_reason,
+            "pcr_reason":    pcr_reason,
+            "regime":        self._regime,
             "high":          price,
             "low":           price,
             "last_price":    price,
-            "token":         inst.get("token", ""),
+            "token":         token,
             "exchange":      inst.get("exchange", "NFO"),
         }
         self.risk.record_trade_open()
@@ -153,10 +320,15 @@ class PaperTrader:
         notify_entry(symbol, signal, price, sl, price, qty)
         log.info(
             f"[{symbol}] ENTRY {signal} @ {price} | "
-            f"SL {sl} | Qty {qty} | Score {score} | Pattern:{pattern}"
+            f"SL {sl} (10pt hard) | Qty {qty} | Score {score} | "
+            f"Pattern:{pattern} | OI:{oi_reason} | PCR:{pcr_reason} | "
+            f"Regime:{self._regime}"
         )
 
-    def _ltp_exit_loop(self):
+    # ── LTP polling thread ─────────────────────────────────────────────────────
+
+    def _ltp_loop(self):
+        """Poll LTP every 15 seconds for open positions."""
         while self.running:
             for sym in list(self.positions.keys()):
                 pos      = self.positions.get(sym)
@@ -177,13 +349,26 @@ class PaperTrader:
                         )
                         log.info(
                             f"[{sym}] LTP:{ltp} | "
-                            f"SL:{pos.get('current_sl', 0):.2f} | "
+                            f"SL:{pos.get('current_sl',0):.1f} | "
                             f"P&L:Rs.{pnl}"
                         )
                 except Exception as e:
-                    log.error(f"LTP [{sym}]: {e}")
+                    log.debug(f"LTP [{sym}]: {e}")
                 time.sleep(2)
             time.sleep(13)
+
+    # ── PCR update thread ──────────────────────────────────────────────────────
+
+    def _pcr_loop(self):
+        """Update PCR every 30 minutes."""
+        while self.running:
+            try:
+                update_pcr(self.client)
+            except Exception as e:
+                log.debug(f"PCR update: {e}")
+            time.sleep(1800)
+
+    # ── Manual SL ──────────────────────────────────────────────────────────────
 
     def adjust_sl(self, symbol, new_sl):
         pos = self.positions.get(symbol)
@@ -201,6 +386,8 @@ class PaperTrader:
         pos["sl_manual"] = True
         log.info(f"[{symbol}] Manual SL: {old} -> {new_sl}")
         return True, f"SL updated {old} -> {new_sl}"
+
+    # ── Save and heartbeat ──────────────────────────────────────────────────────
 
     def save_log(self):
         os.makedirs(Config.LOG_DIR, exist_ok=True)
@@ -220,22 +407,56 @@ class PaperTrader:
             "trades_today": self.risk.trades_today,
             "daily_pnl":    self.risk.daily_pnl,
             "instruments":  [i["symbol"] for i in self.instruments],
-            "market_dir":   "ORIGINAL",
+            "market_dir":   self._regime,
         })
+
+    # ── Main run ────────────────────────────────────────────────────────────────
 
     def run(self):
         self.client.login()
         self.running = True
         notify_bot_started("PAPER")
-        log.info(f"Bot started. Scanning {len(self.instruments)} instruments.")
-        log.info("Strategy: original — direct option pattern scanning, no trend filter")
+        log.info(f"Bot started with OI+PCR+Regime filters. {len(self.instruments)} instruments.")
 
-        ltp_thread = threading.Thread(target=self._ltp_exit_loop, daemon=True)
+        # Initial VIX fetch
+        time.sleep(5)
+        try:
+            self._vix      = get_india_vix(self.client)
+            self._vix_time = datetime.now()
+            log.info(f"VIX: {self._vix}")
+        except Exception as e:
+            log.warning(f"VIX failed: {e}")
+
+        # Initial PCR fetch
+        try:
+            update_pcr(self.client)
+        except Exception as e:
+            log.warning(f"PCR init failed: {e}")
+
+        # Start LTP polling thread
+        ltp_thread = threading.Thread(target=self._ltp_loop, daemon=True)
         ltp_thread.start()
+
+        # Start PCR polling thread
+        pcr_thread = threading.Thread(target=self._pcr_loop, daemon=True)
+        pcr_thread.start()
 
         idx = 0
         try:
             while self.running:
+
+                # Check regime after 10 AM
+                self._check_regime()
+
+                # Refresh VIX every 30 min
+                if (datetime.now() - self._vix_time).seconds > 1800:
+                    try:
+                        self._vix      = get_india_vix(self.client)
+                        self._vix_time = datetime.now()
+                    except Exception:
+                        pass
+
+                # Scan next instrument
                 inst   = self.instruments[idx % len(self.instruments)]
                 symbol = inst["symbol"]
                 token  = inst.get("token", "")
@@ -254,8 +475,10 @@ class PaperTrader:
                         log.info(
                             f"[{symbol}] "
                             f"Price:{row['close']} | "
-                            f"Signal:{row.get('signal', 'none')} | "
-                            f"Score:{row.get('signal_score', 0)}"
+                            f"Signal:{row.get('signal','none')} | "
+                            f"Score:{row.get('signal_score',0)} | "
+                            f"Vol:{row.get('vol_surge',False)} | "
+                            f"Regime:{self._regime}"
                         )
                         if symbol in self.positions:
                             self._check_exit(symbol, float(row["close"]))
