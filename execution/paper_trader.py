@@ -50,13 +50,14 @@ class PaperTrader:
         if pos.get("sl_manual"):
             new_sl = old_sl
         else:
-            new_sl = self.risk.trail_stop_loss(old_sl, ltp, atr, pos["direction"])
+            new_sl = self.risk.trail_stop_loss(old_sl, ltp, pos["entry"], pos["direction"])
         if new_sl != old_sl:
             pos["sl"]         = new_sl
             pos["current_sl"] = new_sl
             pos["sl_manual"]  = False
+            phase = self.risk.get_sl_phase(new_sl, pos["entry"], pos["direction"])
             notify_sl_trail(symbol, old_sl, new_sl, ltp)
-            log.info(f"[{symbol}] Trail SL: {old_sl} -> {new_sl}")
+            log.info(f"[{symbol}] SL: {old_sl} -> {new_sl} | {phase} | Price:{ltp}")
         else:
             pos["current_sl"] = pos["sl"]
         pos["last_price"] = ltp
@@ -122,7 +123,7 @@ class PaperTrader:
             log.info(f"[{symbol}] Expiry cutoff")
             return
         atr     = float(row.get("atr", price * 0.05) or price * 0.05)
-        sl      = self.risk.initial_stop_loss(price, atr, signal)
+        sl      = self.risk.initial_stop_loss(price, signal)
         qty     = Config.LOT_SIZE * Config.FIXED_LOTS
         pattern = ""
         for col in row.index:
