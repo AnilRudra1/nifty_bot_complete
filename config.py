@@ -36,7 +36,7 @@ class Config:
     SIGNAL_SCORE_MIN     = int(os.getenv("SIGNAL_SCORE_MIN", 65))
 
     # Market timings
-    AVOID_OPEN_MINUTES   = 15
+    AVOID_OPEN_MINUTES = int(os.getenv("AVOID_OPEN_MINUTES", 30))
     SQUARE_OFF_HOUR      = 15
     SQUARE_OFF_MINUTE    = 15
 

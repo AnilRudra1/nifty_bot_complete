@@ -212,6 +212,11 @@ class PaperTrader:
             log.info(f"[{symbol}] Paused — {self._consec_losses} consecutive losses")
             return
 
+        # Block until regime is known (after 10 AM)
+        if self._regime == "UNKNOWN" and datetime.now().time() >= dtime(10, 0):
+            log.info(f"[{symbol}] Waiting for regime detection")
+            return
+
         # Regime stop check
         if should_stop_trading(self._regime):
             log.info(f"[{symbol}] Regime stop — no new entries after cutoff hour")
