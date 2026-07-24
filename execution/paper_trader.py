@@ -163,12 +163,6 @@ class PaperTrader:
             else (pos["entry"] - exit_price)
         pnl_rs  = round(pnl_pts * pos["qty"] - 40, 2)
 
-        # Track consecutive losses
-        if pnl_rs < 0:
-            self._consec_losses += 1
-        else:
-            self._consec_losses = 0
-
         self.trades.append({
             "symbol":        symbol,
             "direction":     pos["direction"],
@@ -205,11 +199,6 @@ class PaperTrader:
         opt_type = "CE" if "CE" in symbol else "PE"
 
         if symbol in self.positions:
-            return
-
-        # Consecutive loss pause — after 3 losses pause 30 min
-        if self._consec_losses >= 3:
-            log.info(f"[{symbol}] Paused — {self._consec_losses} consecutive losses")
             return
 
         # Block until regime is known (after 10 AM)
@@ -261,27 +250,26 @@ class PaperTrader:
             log.info(f"[{symbol}] No volume surge — skip")
             return
 
-        # ── OI Confirmation ─────────────────────────────────────────────────
-        try:
-            update_oi(self.client, symbol, token, inst.get("exchange", "NFO"))
-            oi_ok, oi_reason, oi_adj = confirm_signal_with_oi(token, signal)
-            if not oi_ok:
-                log.info(f"[{symbol}] OI rejected: {oi_reason}")
-                return
-            score += oi_adj
-        except Exception as e:
-            log.debug(f"OI check error: {e}")
-            oi_reason = "OI unavailable"
-            oi_adj    = 0
+        # OI proxy via volume surge
+        oi_reason = "Vol surge confirmed" if row.get("vol_surge") else "No vol surge"
+        score    += 10 if row.get("vol_surge") else 0
 
-        # ── PCR Confirmation ─────────────────────────────────────────────────
-        try:
-            pcr_ok, pcr_reason, pcr_adj = confirm_signal_with_pcr(signal, opt_type)
-            score += pcr_adj
-        except Exception as e:
-            log.debug(f"PCR check error: {e}")
-            pcr_reason = "PCR unavailable"
-            pcr_adj    = 0
+        # PCR proxy via VWAP position
+        above_vwap = row.get("above_vwap", False)
+        if signal == "BUY" and above_vwap:
+            pcr_reason = "Above VWAP confirms BUY"
+            score     += 10
+        elif signal == "SELL" and not above_vwap:
+            pcr_reason = "Below VWAP confirms SELL"
+            score     += 10
+        elif signal == "BUY" and not above_vwap:
+            pcr_reason = "Below VWAP contradicts BUY"
+            score     -= 10
+        elif signal == "SELL" and above_vwap:
+            pcr_reason = "Above VWAP contradicts SELL"
+            score     -= 10
+        else:
+            pcr_reason = "VWAP neutral"
 
         # Final score check after all adjustments
         if score < score_min:
@@ -441,10 +429,6 @@ class PaperTrader:
         # Start LTP polling thread
         ltp_thread = threading.Thread(target=self._ltp_loop, daemon=True)
         ltp_thread.start()
-
-        # Start PCR polling thread
-        pcr_thread = threading.Thread(target=self._pcr_loop, daemon=True)
-        pcr_thread.start()
 
         idx = 0
         try:
